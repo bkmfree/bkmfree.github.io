@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>smile-korea.kr</title>
+  <meta name="description" content="개인 홈페이지 - smile-korea.kr" />
+  <style>
+    :root {
+      --bg: #0f1115;
+      --card: #1a1d24;
+      --accent: #4ade80;
+      --text: #e8eaed;
+      --muted: #9aa0a6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+    header {
+      text-align: center;
+      padding: 80px 20px 50px;
+    }
+    .avatar {
+      width: 110px; height: 110px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, #4ade80, #22d3ee);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 44px; font-weight: 700; color: #0f1115;
+    }
+    h1 { font-size: 2rem; margin-bottom: 8px; }
+    .tagline { color: var(--muted); font-size: 1.05rem; }
+    section { padding: 30px 0; border-top: 1px solid #262a33; }
+    h2 { font-size: 1.3rem; margin-bottom: 14px; color: var(--accent); }
+    p { color: #d2d5da; margin-bottom: 10px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+    .card { background: var(--card); padding: 16px; border-radius: 12px; }
+    .card h3 { font-size: 1rem; margin-bottom: 6px; }
+    .card p { font-size: 0.92rem; color: var(--muted); }
+    ul { list-style: none; }
+    ul li { padding: 6px 0; border-bottom: 1px dashed #262a33; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .contact a { display: inline-block; margin-right: 16px; }
+    footer { text-align: center; padding: 40px 20px; color: var(--muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="avatar">S</div>
+    <h1>홍길동</h1>
+    <p class="tagline">안녕하세요. smile-korea.kr 운영자입니다.</p>
+  </header>
+
+  <div class="wrap">
+    <section id="about">
+      <h2>소개</h2>
+      <p>여기에 자신을 소개하는 글을 작성하세요. 현재 관심사, 하는 일, 하고 싶은 일 등을 자유롭게 적으면 됩니다.</p>
+      <p>예: 저는 웹 개발과 디자인에 관심이 많으며, 취미로 사진을 찍습니다.</p>
+    </section>
+
+    <section id="interests">
+      <h2>관심 분야</h2>
+      <div class="cards">
+        <div class="card"><h3>개발</h3><p>웹 / Python / 자동화</p></div>
+        <div class="card"><h3>디자인</h3><p>UI/UX / 타이포그래피</p></div>
+        <div class="card"><h3>취미</h3><p>사진 / 여행 / 독서</p></div>
+      </div>
+    </section>
+
+    <section id="links">
+      <h2>바로가기</h2>
+      <ul>
+        <li><a href="https://github.com/" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://blog.example.com" target="_blank" rel="noopener">블로그</a></li>
+        <li><a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube</a></li>
+      </ul>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2>연락처</h2>
+      <p>
+        <a href="mailto:you@example.com">이메일</a>
+        <a href="#">기타 링크</a>
+      </p>
+    </section>
+  </div>
+
+  <footer>
+    © <span id="year"></span> smile-korea.kr. 모든 권리 보유.
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
