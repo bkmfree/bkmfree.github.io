@@ -1,0 +1,585 @@
+{
+  "projects": [
+    {
+      "id": "proj_sample_1721545600000",
+      "name": "🚀 신규 모바일 앱 개발 프로젝트",
+      "color": "#2563eb",
+      "createdAt": "2026-07-21T00:00:00.000Z"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "w1_t1",
+      "projectId": "proj_sample_1721545600000",
+      "title": "요구사항 분석 및 기획",
+      "wbsCode": "1.0",
+      "status": "done",
+      "priority": "high",
+      "progress": 100,
+      "startDate": "2026-06-21",
+      "endDate": "2026-07-03",
+      "assignee": "김기획",
+      "part": "기획",
+      "isMilestone": true,
+      "dependencies": [],
+      "createdAt": "2026-07-21"
+    },
+    {
+      "id": "w1_t2",
+      "projectId": "proj_sample_1721545600000",
+      "title": "기획서 초안 작성",
+      "wbsCode": "1.1",
+      "status": "done",
+      "priority": "high",
+      "progress": 100,
+      "startDate": "2026-06-25",
+      "endDate": "2026-07-05",
+      "assignee": "김기획",
+      "part": "기획",
+      "isMilestone": false,
+      "dependencies": [
+        "w1_t1"
+      ],
+      "createdAt": "2026-07-21"
+    },
+    {
+      "id": "w1_t3",
+      "projectId": "proj_sample_1721545600000",
+      "title": "UI 리서치",
+      "wbsCode": "2.0",
+      "status": "done",
+      "priority": "medium",
+      "progress": 100,
+      "startDate": "2026-06-26",
+      "endDate": "2026-07-04",
+      "assignee": "이디자인",
+      "part": "디자인",
+      "isMilestone": false,
+      "dependencies": [],
+      "createdAt": "2026-07-21"
+    },
+    {
+      "id": "w2_t1",
+      "projectId": "proj_sample_1721545600000",
+      "title": "와이어프레임",
+      "wbsCode": "2.1",
+      "status": "done",
+      "priority": "medium",
+      "progress": 100,
+      "startDate": "2026-07-06",
+      "endDate": "2026-07-10",
+      "assignee": "이디자인",
+      "part": "디자인",
+      "isMilestone": false,
+      "dependencies": [
+        "w1_t3"
+      ],
+      "createdAt": "2026-07-21"
+    },
+    {
+      "id": "w2_t2",
+      "projectId": "proj_sample_1721545600000",
+      "title": "API 명세 검증",
+      "wbsCode": "4.0",
+      "status": "done",
+      "priority": "high",
+      "progress": 100,
+      "startDate": "2026-07-07",
+      "endDate": "2026-07-12",
+      "assignee": "정개발",
+      "part": "개발",
+      "isMilestone": false,
+      "dependencies": [
+        "w1_t1"
+      ],
+      "createdAt": "2026-07-21"
+    },
+    {
+      "id": "w2_t3",
+      "projectId": "proj_sample_1721545600000",
+      "title": "개발 환경 구축",
+      "wbsCode": "4.1",
+      "status": "done",
+      "priority": "high",
+      "progress": 100,
+      "startDate": "2026-07-08",
+      "endDate": "2026-07-11",
+      "assignee": "정개발",
+      "part": "개발",
+      "isMilestone": false,
+      "dependencies": [
+        "w2_t2"
+      ],
+      "createdAt": "2026-07-21"
+    },
+    {
+      "id": "w2_t4",
+      "projectId": "proj_sample_1721545600000",
+      "title": "기획서 확정",
+      "wbsCode": "1.2",
+      "status": "done",
+      "priority": "high",
+      "progress": 100,
+      "startDate": "2026-07-09",
+      "endDate": "2026-07-09",
+      "assignee": "김기획",
+      "part": "기획",
+      "isMilestone": true,
+      "dependencies": [
+        "w1_t2"
+      ],
+      "createdAt": "2026-07-21"
+    },
+    {
+      "id": "w2_t5",
+      "projectId": "proj_sample_1721545600000",
+      "title": "퍼블 가이드",
+      "wbsCode": "3.0",
+      "status": "done",
+      "priority": "medium",
+      "progress": 100,
+      "startDate": "2026-07-10",
+      "endDate": "2026-07-12",
+      "assignee": "박퍼블",
+      "part": "퍼블리셔",
+      "isMilestone": false,
+      "dependencies": [
+        "w2_t1"
+      ],
+      "createdAt": "2026-07-21"
+    },
+    {
+      "id": "w3_t1",
+      "projectId": "proj_sample_1721545600000",
+      "title": "UI 디자인 확정",
+      "wbsCode": "2.2",
+      "status": "done",
+      "priority": "high",
+      "progress": 100,
+      "startDate": "2026-07-13",
+      "endDate": "2026-07-15",
+      "assignee": "이디자인",
+      "part": "디자인",
+      "isMilestone": true,
+      "dependencies": [
+        "w2_t1"
+      ],
+      "createdAt": "2026-07-21"
+    },
+    {
+      "id": "w3_t2",
+      "projectId": "proj_sample_1721545600000",
+      "title": "화면 설계서",
+      "wbsCode": "1.3",
+      "status": "done",
+      "priority": "medium",
+      "progress": 100,
+      "startDate": "2026-07-14",
+      "endDate": "2026-07-16",
+      "assignee": "김기획",
+      "part": "기획",
+      "isMilestone": false,
+      "dependencies": [
+        "w2_t4"
+      ],
+      "createdAt": "2026-07-21"
+    },
+    {
+      "id": "w3_t3",
+      "projectId": "proj_sample_1721545600000",
+      "title": "프론트엔드 스캐폴딩",
+      "wbsCode": "4.2",
+      "status": "done",
+      "priority": "high",
+      "progress": 100,
+      "startDate": "2026-07-14",
+      "endDate": "2026-07-17",
+      "assignee": "최개발",
+      "part": "개발",
+      "isMilestone": false,
+      "dependencies": [
+        "w2_t3"
+      ],
+      "createdAt": "2026-07-21"
+    },
+    {
+      "id": "w3_t4",
+      "projectId": "proj_sample_1721545600000",
+      "title": "ERD 설계",
+      "wbsCode": "4.3",
+      "status": "done",
+      "priority": "medium",
+      "progress": 100,
+      "startDate": "2026-07-15",
+      "endDate": "2026-07-18",
+      "assignee": "정개발",
+      "part": "개발",
+      "isMilestone": false,
+      "dependencies": [
+        "w3_t3"
+      ],
+      "createdAt": "2026-07-21"
+    },
+    {
+      "id": "w3_t5",
+      "projectId": "proj_sample_1721545600000",
+      "title": "메인 퍼블리싱",
+      "wbsCode": "3.1",
+      "status": "done",
+      "priority": "medium",
+      "progress": 100,
+      "startDate": "2026-07-15",
+      "endDate": "2026-07-19",
+      "assignee": "박퍼블",
+      "part": "퍼블리셔",
+      "isMilestone": false,
+      "dependencies": [
+        "w3_t1"
+      ],
+      "createdAt": "2026-07-21"
+    },
+    {
+      "id": "w3_t6",
+      "projectId": "proj_sample_1721545600000",
+      "title": "QA 시나리오",
+      "wbsCode": "5.0",
+      "status": "done",
+      "priority": "medium",
+      "progress": 100,
+      "startDate": "2026-07-16",
+      "endDate": "2026-07-19",
+      "assignee": "강테스트",
+      "part": "TA",
+      "isMilestone": false,
+      "dependencies": [
+        "w2_t5"
+      ],
+      "createdAt": "2026-07-21"
+    },
+    {
+      "id": "w3_t7",
+      "projectId": "proj_sample_1721545600000",
+      "title": "1차 빌드",
+      "wbsCode": "4.4",
+      "status": "done",
+      "priority": "high",
+      "progress": 100,
+      "startDate": "2026-07-17",
+      "endDate": "2026-07-17",
+      "assignee": "정개발",
+      "part": "개발",
+      "isMilestone": true,
+      "dependencies": [
+        "w3_t4"
+      ],
+      "createdAt": "2026-07-21"
+    },
+    {
+      "id": "w4_t1",
+      "projectId": "proj_sample_1721545600000",
+      "title": "1차 API 연동",
+      "wbsCode": "4.5",
+      "status": "inprogress",
+      "priority": "high",
+      "progress": 80,
+      "startDate": "2026-07-21",
+      "endDate": "2026-07-26",
+      "assignee": "정개발",
+      "part": "개발",
+      "isMilestone": false,
+      "dependencies": [
+        "w3_t7"
+      ],
+      "createdAt": "2026-07-21"
+    },
+    {
+      "id": "w4_t2",
+      "projectId": "proj_sample_1721545600000",
+      "title": "QA 테스트",
+      "wbsCode": "5.1",
+      "status": "inprogress",
+      "priority": "high",
+      "progress": 70,
+      "startDate": "2026-07-22",
+      "endDate": "2026-07-28",
+      "assignee": "강테스트",
+      "part": "TA",
+      "isMilestone": false,
+      "dependencies": [
+        "w3_t6"
+      ],
+      "createdAt": "2026-07-21"
+    },
+    {
+      "id": "w4_t3",
+      "projectId": "proj_sample_1721545600000",
+      "title": "버그 수정",
+      "wbsCode": "4.6",
+      "status": "todo",
+      "priority": "medium",
+      "progress": 0,
+      "startDate": "2026-07-24",
+      "endDate": "2026-07-30",
+      "assignee": "최개발",
+      "part": "개발",
+      "isMilestone": false,
+      "dependencies": [
+        "w4_t2"
+      ],
+      "createdAt": "2026-07-21"
+    },
+    {
+      "id": "w4_t4",
+      "projectId": "proj_sample_1721545600000",
+      "title": "성능 개선",
+      "wbsCode": "4.7",
+      "status": "todo",
+      "priority": "medium",
+      "progress": 0,
+      "startDate": "2026-07-23",
+      "endDate": "2026-07-29",
+      "assignee": "최개발",
+      "part": "개발",
+      "isMilestone": false,
+      "dependencies": [
+        "w4_t3"
+      ],
+      "createdAt": "2026-07-21"
+    },
+    {
+      "id": "w4_t5",
+      "projectId": "proj_sample_1721545600000",
+      "title": "UAT 준비",
+      "wbsCode": "7.0",
+      "status": "todo",
+      "priority": "high",
+      "progress": 0,
+      "startDate": "2026-07-25",
+      "endDate": "2026-07-31",
+      "assignee": "홍PL",
+      "part": "AA",
+      "isMilestone": false,
+      "dependencies": [
+        "w4_t4"
+      ],
+      "createdAt": "2026-07-21"
+    },
+    {
+      "id": "w4_t6",
+      "projectId": "proj_sample_1721545600000",
+      "title": "오픈 준비 점검",
+      "wbsCode": "0.1",
+      "status": "todo",
+      "priority": "high",
+      "progress": 0,
+      "startDate": "2026-07-28",
+      "endDate": "2026-07-30",
+      "assignee": "홍PL",
+      "part": "AA",
+      "isMilestone": true,
+      "dependencies": [
+        "w4_t5"
+      ],
+      "createdAt": "2026-07-21"
+    }
+  ],
+  "workers": [
+    {
+      "id": "worker_1",
+      "name": "김기획",
+      "task": "기획",
+      "phone": "010-1111-1111",
+      "email": "planning@company.com",
+      "memo": "사업 기획 5년차"
+    },
+    {
+      "id": "worker_2",
+      "name": "이디자인",
+      "task": "디자인",
+      "phone": "010-2222-2222",
+      "email": "design@company.com",
+      "memo": "UI/UX 디자인 전문"
+    },
+    {
+      "id": "worker_3",
+      "name": "박퍼블",
+      "task": "퍼블리셔",
+      "phone": "010-3333-3333",
+      "email": "publish@company.com",
+      "memo": "HTML/CSS 마스터"
+    },
+    {
+      "id": "worker_4",
+      "name": "최개발",
+      "task": "개발",
+      "phone": "010-4444-4444",
+      "email": "dev@company.com",
+      "memo": "React Native 전문가"
+    },
+    {
+      "id": "worker_5",
+      "name": "정개발",
+      "task": "개발",
+      "phone": "010-5555-5555",
+      "email": "dev2@company.com",
+      "memo": "백엔드 개발자"
+    },
+    {
+      "id": "worker_6",
+      "name": "강테스트",
+      "task": "TA",
+      "phone": "010-6666-6666",
+      "email": "qa@company.com",
+      "memo": "QA 엔지니어"
+    }
+  ],
+  "managers": [
+    {
+      "id": "manager_1",
+      "name": "홍PL",
+      "task": "PM 총괄",
+      "phone": "010-9999-9999",
+      "email": "pm@company.com",
+      "workers": []
+    },
+    {
+      "id": "manager_2",
+      "name": "송기획PL",
+      "task": "기획 파트장",
+      "phone": "010-8888-8888",
+      "email": "plan_pl@company.com",
+      "workers": [
+        "김기획"
+      ]
+    },
+    {
+      "id": "manager_3",
+      "name": "윤개발PL",
+      "task": "개발 파트장",
+      "phone": "010-7777-7777",
+      "email": "dev_pl@company.com",
+      "workers": [
+        "최개발",
+        "정개발"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "part_1",
+      "name": "기획",
+      "color": "#3b82f6",
+      "order": 1
+    },
+    {
+      "id": "part_2",
+      "name": "디자인",
+      "color": "#8b5cf6",
+      "order": 2
+    },
+    {
+      "id": "part_3",
+      "name": "퍼블리셔",
+      "color": "#10b981",
+      "order": 3
+    },
+    {
+      "id": "part_4",
+      "name": "개발",
+      "color": "#f59e0b",
+      "order": 4
+    },
+    {
+      "id": "part_5",
+      "name": "TA",
+      "color": "#ef4444",
+      "order": 5
+    },
+    {
+      "id": "part_6",
+      "name": "AA",
+      "color": "#06b6d4",
+      "order": 6
+    },
+    {
+      "id": "part_7",
+      "name": "DA",
+      "color": "#84cc16",
+      "order": 7
+    },
+    {
+      "id": "part_8",
+      "name": "SA",
+      "color": "#f43f5e",
+      "order": 8
+    }
+  ],
+  "risks": [
+    {
+      "id": "risk_1",
+      "projectId": "proj_sample_1721545600000",
+      "title": "외부 API 연동 지연",
+      "description": "외부 업체 API 문서 전달이 1주일 지연되어 개발 일정에 영향",
+      "category": "external",
+      "severity": "high",
+      "probability": "high",
+      "impact": "high",
+      "status": "open",
+      "createdAt": "2026-07-19T00:00:00.000Z",
+      "updates": [],
+      "autoDetected": false
+    }
+  ],
+  "holidays": [
+    {
+      "id": "hol_1",
+      "startDate": "2026-01-01",
+      "endDate": "2026-01-01",
+      "name": "신정"
+    },
+    {
+      "id": "hol_2",
+      "startDate": "2026-03-01",
+      "endDate": "2026-03-01",
+      "name": "삼일절"
+    },
+    {
+      "id": "hol_3",
+      "startDate": "2026-05-05",
+      "endDate": "2026-05-05",
+      "name": "어린이날"
+    },
+    {
+      "id": "hol_4",
+      "startDate": "2026-06-06",
+      "endDate": "2026-06-06",
+      "name": "현충일"
+    },
+    {
+      "id": "hol_5",
+      "startDate": "2026-08-15",
+      "endDate": "2026-08-15",
+      "name": "광복절"
+    },
+    {
+      "id": "hol_6",
+      "startDate": "2026-10-03",
+      "endDate": "2026-10-03",
+      "name": "개천절"
+    },
+    {
+      "id": "hol_7",
+      "startDate": "2026-10-09",
+      "endDate": "2026-10-09",
+      "name": "한글날"
+    },
+    {
+      "id": "hol_8",
+      "startDate": "2026-12-25",
+      "endDate": "2026-12-25",
+      "name": "크리스마스"
+    }
+  ],
+  "plComments": {},
+  "changelog": []
+}

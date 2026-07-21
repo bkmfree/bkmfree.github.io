@@ -1,0 +1,103 @@
+{
+  "projects": [
+    {
+      "_comment": "프로젝트 목록. 보통 1개만 사용합니다.",
+      "id": "proj_sample_1721545600000",
+      "name": "🚀 신규 모바일 앱 개발 프로젝트",
+      "color": "#2563eb",
+      "createdAt": "2026-07-21T00:00:00.000Z"
+    }
+  ],
+  "tasks": [
+    {
+      "_comment": "작업(WBS) 항목 예시. 실제 데이터는 tasks 배열에 들어갑니다.",
+      "id": "task_1",
+      "projectId": "proj_sample_1721545600000",
+      "title": "1. 요구사항 분석 및 기획",
+      "wbsCode": "1.0",
+      "status": "done",
+      "priority": "high",
+      "progress": 100,
+      "startDate": "2026-06-21",
+      "endDate": "2026-07-01",
+      "assignee": "김기획",
+      "memo": "고객 인터뷰 완료",
+      "isMilestone": true,
+      "dependencies": [],
+      "createdAt": "2026-07-21T00:00:00.000Z"
+    }
+  ],
+  "workers": [
+    {
+      "_comment": "작업자 정보. task 필드는 parts.name과 일치해야 합니다.",
+      "id": "worker_1",
+      "name": "김기획",
+      "task": "기획",
+      "phone": "010-1111-1111",
+      "email": "planning@company.com",
+      "memo": "사업 기획 5년차"
+    }
+  ],
+  "managers": [
+    {
+      "_comment": "PL/팀장 정보. workers 배열에는 관리하는 사람들의 name을 적습니다.",
+      "id": "manager_1",
+      "name": "홍PL",
+      "task": "PM 총괄",
+      "phone": "010-9999-9999",
+      "email": "pm@company.com",
+      "workers": []
+    }
+  ],
+  "parts": [
+    {
+      "_comment": "업무 영역 구분. workers.task와 이름이 일치해야 합니다.",
+      "id": "part_1",
+      "name": "기획",
+      "color": "#3b82f6",
+      "order": 1
+    }
+  ],
+  "risks": [
+    {
+      "_comment": "리스크 항목. category는 external/resource/technical/schedule 중 하나.",
+      "id": "risk_1",
+      "projectId": "proj_sample_1721545600000",
+      "title": "외부 API 연동 지연",
+      "description": "외부 업체 API 문서 전달이 1주일 지연되어 개발 일정에 영향",
+      "category": "external",
+      "severity": "high",
+      "probability": "high",
+      "impact": "high",
+      "status": "open",
+      "updates": [],
+      "createdAt": "2026-07-19T00:00:00.000Z",
+      "autoDetected": false
+    }
+  ],
+  "holidays": [
+    {
+      "_comment": "휴일 목록. endDate는 당일인 경우 startDate와 같게 둡니다.",
+      "id": "hol_1",
+      "startDate": "2026-01-01",
+      "endDate": "2026-01-01",
+      "name": "신정"
+    }
+  ],
+  "plComments": {
+    "_comment": "PL 주간 코멘트. 키 형식: {projectId}_{파트명}",
+    "proj_sample_1721545600000_기획": "요구사항 분석 완료. 추가 기능 요청 사항은 다음 스프린트에 반영 예정입니다."
+  },
+  "changelog": [
+    {
+      "_comment": "변경 이력. 시스템이 자동으로 기록하므로 일반적으로 수정하지 않습니다.",
+      "id": "log_1",
+      "timestamp": "2026-07-21T00:00:00.000Z",
+      "user": "홍PL",
+      "action": "update",
+      "targetType": "task",
+      "targetId": "task_1",
+      "details": "progress: 0 → 100"
+    }
+  ]
+}

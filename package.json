@@ -1,0 +1,24 @@
+{
+  "name": "claude",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bkmfree/bkmfree.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/bkmfree/bkmfree.github.io/issues"
+  },
+  "homepage": "https://github.com/bkmfree/bkmfree.github.io#readme",
+  "devDependencies": {
+    "eslint": "^10.7.0"
+  }
+}

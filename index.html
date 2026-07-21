@@ -1,102 +1,714 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>smile-korea.kr</title>
-  <meta name="description" content="개인 홈페이지 - smile-korea.kr" />
-  <style>
-    :root {
-      --bg: #0f1115;
-      --card: #1a1d24;
-      --accent: #4ade80;
-      --text: #e8eaed;
-      --muted: #9aa0a6;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-    }
-    .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
-    header {
-      text-align: center;
-      padding: 80px 20px 50px;
-    }
-    .avatar {
-      width: 110px; height: 110px;
-      border-radius: 50%;
-      margin: 0 auto 20px;
-      background: linear-gradient(135deg, #4ade80, #22d3ee);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 44px; font-weight: 700; color: #0f1115;
-    }
-    h1 { font-size: 2rem; margin-bottom: 8px; }
-    .tagline { color: var(--muted); font-size: 1.05rem; }
-    section { padding: 30px 0; border-top: 1px solid #262a33; }
-    h2 { font-size: 1.3rem; margin-bottom: 14px; color: var(--accent); }
-    p { color: #d2d5da; margin-bottom: 10px; }
-    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
-    .card { background: var(--card); padding: 16px; border-radius: 12px; }
-    .card h3 { font-size: 1rem; margin-bottom: 6px; }
-    .card p { font-size: 0.92rem; color: var(--muted); }
-    ul { list-style: none; }
-    ul li { padding: 6px 0; border-bottom: 1px dashed #262a33; }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .contact a { display: inline-block; margin-right: 16px; }
-    footer { text-align: center; padding: 40px 20px; color: var(--muted); font-size: 0.85rem; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프로젝트 통합 관리 시스템 v7 - Phase 1~3 구현</title>
+    <link rel="stylesheet" href="common/css/main.css">
 </head>
 <body>
-  <header>
-    <div class="avatar">S</div>
-    <h1>홍길동</h1>
-    <p class="tagline">안녕하세요. smile-korea.kr 운영자입니다.</p>
-  </header>
+    <script src="common/js/constants.js"></script>
+    <script src="common/js/datastore.js"></script>
+    <script src="common/js/engines.js"></script>
+    <!-- =================================================================
+         HTML 구조 - 사이드바 백드롭 (모바일)
+         ================================================================= -->
+    <div class="sidebar-backdrop" id="sidebar-backdrop" onclick="toggleSidebar()"></div>
 
-  <div class="wrap">
-    <section id="about">
-      <h2>소개</h2>
-      <p>여기에 자신을 소개하는 글을 작성하세요. 현재 관심사, 하는 일, 하고 싶은 일 등을 자유롭게 적으면 됩니다.</p>
-      <p>예: 저는 웹 개발과 디자인에 관심이 많으며, 취미로 사진을 찍습니다.</p>
-    </section>
+    <!-- =================================================================
+         HTML 구조 - 사이드바
+         ================================================================= -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span>🚀 PM System v7</span>
+            <button class="sidebar-close-btn" onclick="toggleSidebar()">&times;</button>
+        </div>
 
-    <section id="interests">
-      <h2>관심 분야</h2>
-      <div class="cards">
-        <div class="card"><h3>개발</h3><p>웹 / Python / 자동화</p></div>
-        <div class="card"><h3>디자인</h3><p>UI/UX / 타이포그래피</p></div>
-        <div class="card"><h3>취미</h3><p>사진 / 여행 / 독서</p></div>
-      </div>
-    </section>
+        <!-- 1. 역할 선택기 (Phase 1 신규) -->
+        <div class="role-selector">
+            <label>👤 나의 역할</label>
+            <select id="current-role-select" onchange="switchRole(this.value)">
+                <option value="pm">PM (프로젝트 관리자)</option>
+                <option value="pl_planning">PL - 기획</option>
+                <option value="pl_design">PL - 디자인</option>
+                <option value="pl_publisher">PL - 퍼블리셔</option>
+                <option value="pl_dev">PL - 개발</option>
+                <option value="pl_ta">PL - TA</option>
+                <option value="pl_aa">PL - AA</option>
+                <option value="pl_da">PL - DA</option>
+                <option value="pl_sa">PL - SA</option>
+                <option value="worker">작업자</option>
+            </select>
+        </div>
 
-    <section id="links">
-      <h2>바로가기</h2>
-      <ul>
-        <li><a href="https://github.com/" target="_blank" rel="noopener">GitHub</a></li>
-        <li><a href="https://blog.example.com" target="_blank" rel="noopener">블로그</a></li>
-        <li><a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube</a></li>
-      </ul>
-    </section>
+        <!-- 2. 프로젝트 선택 -->
+        <div class="project-selector">
+            <select class="project-select" id="current-project-select" onchange="switchProject(this.value)"></select>
+            <button class="btn btn-outline btn-icon" onclick="switchView('projects', null)" title="프로젝트 관리">📂</button>
+        </div>
 
-    <section id="contact" class="contact">
-      <h2>연락처</h2>
-      <p>
-        <a href="mailto:you@example.com">이메일</a>
-        <a href="#">기타 링크</a>
-      </p>
-    </section>
-  </div>
+        <!-- 3. 네비게이션 메뉴 -->
+        <ul class="nav-menu">
+            <li class="nav-item active" data-view="dashboard" onclick="switchView('dashboard', this)">📊 대시보드</li>
 
-  <footer>
-    © <span id="year"></span> smile-korea.kr. 모든 권리 보유.
-  </footer>
+            <li class="nav-item nav-parent" onclick="toggleSubmenu('wbs')">
+                <span>📅 WBS / 일정</span>
+                <span class="nav-caret" id="wbs-submenu-caret">▾</span>
+            </li>
+            <ul class="nav-submenu" id="wbs-submenu">
+                <li class="nav-subitem" data-view="wbs" onclick="switchView('wbs', this)">📋 작업 목록 (WBS)</li>
+                <li class="nav-subitem" data-view="wbs-chart" onclick="switchView('wbs-chart', this)">📊 일정 차트 (연/월/주)</li>
+                <li class="nav-subitem" data-view="workload" onclick="switchView('workload', this)">📈 담당자별 부하</li>
+            </ul>
 
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+            <li class="nav-item" data-view="holidays" onclick="switchView('holidays', this)">📆 휴일 관리</li>
+            <li class="nav-item" data-view="risks" onclick="switchView('risks', this)">🛡️ RISK 관리</li>
+
+            <!-- Phase 1 신규: PL 전용 화면 -->
+            <li class="nav-item" data-view="pl-dashboard" onclick="switchView('pl-dashboard', this)" style="display:none;" id="nav-pl-dashboard">📋 내 팀 대시보드</li>
+
+            <!-- Phase 2 신규: 보고서 -->
+            <li class="nav-item nav-parent" onclick="toggleSubmenu('reports')">
+                <span>📝 보고서</span>
+                <span class="nav-caret" id="reports-submenu-caret">▾</span>
+            </li>
+            <ul class="nav-submenu" id="reports-submenu">
+                <li class="nav-subitem" data-view="weekly-report" onclick="switchView('weekly-report', this)">📅 주간 보고서</li>
+                <li class="nav-subitem" data-view="monthly-report" onclick="switchView('monthly-report', this)">📊 월간 보고서</li>
+                <li class="nav-subitem" data-view="client-report" onclick="switchView('client-report', this)">👔 고객 보고 뷰</li>
+            </ul>
+
+            <li class="nav-item nav-parent" onclick="toggleSubmenu('settings')">
+                <span>⚙️ 설정관리</span>
+                <span class="nav-caret" id="settings-submenu-caret">▾</span>
+            </li>
+            <ul class="nav-submenu" id="settings-submenu">
+                <li class="nav-subitem" data-view="projects" onclick="switchView('projects', this)">🏢 프로젝트 관리</li>
+                <li class="nav-subitem" data-view="workers" onclick="switchView('workers', this)">👷 작업자 관리</li>
+                <li class="nav-subitem" data-view="managers" onclick="switchView('managers', this)">🧑‍💼 업무 담당자 관리</li>
+                <li class="nav-subitem" data-view="parts" onclick="switchView('parts', this)">🏷️ 담당업무 구분</li>
+                <li class="nav-subitem" data-view="backup" onclick="switchView('backup', this)">💾 백업 관리</li>
+                <li class="nav-subitem" data-view="changelog" onclick="switchView('changelog', this)">📜 변경 이력</li>
+            </ul>
+        </ul>
+    </nav>
+
+    <!-- =================================================================
+         HTML 구조 - 메인 콘텐츠
+         ================================================================= -->
+    <div class="main-content">
+        <header class="top-bar">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <button class="btn btn-outline btn-icon" id="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+                <div class="page-title" id="page-title">대시보드</div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-outline" onclick="exportCsv()" title="현재 프로젝트 WBS를 CSV로 내보냅니다">📑 <span class="btn-text">CSV 내보내기</span></button>
+                <button class="btn btn-outline" onclick="exportData()">💾 <span class="btn-text">전체 저장(JSON)</span></button>
+                <label class="btn btn-outline" style="cursor: pointer;">
+                    📂 <span class="btn-text">불러오기</span>
+                    <input type="file" id="file-input" accept=".json" style="display: none;" onchange="importData(this)">
+                </label>
+            </div>
+        </header>
+
+        <!-- =================================================================
+             1. 대시보드 뷰 (PM용 강화 버전)
+             ================================================================= -->
+        <div id="view-dashboard" class="view-container active">
+            <!-- 1-1. 프로젝트 건강도 및 통계 -->
+            <div class="stats-row" id="stats-row">
+                <!-- 동적 생성 -->
+            </div>
+
+            <!-- 1-2. 주간 추세 그래프 (Phase 1 신규) -->
+            <div class="card trend-chart-card">
+                <h3 style="margin-top:0;">📈 주간 진행률 추세 (최근 4주)</h3>
+                <div class="trend-chart" id="trend-chart">
+                    <!-- 동적 생성 -->
+                </div>
+            </div>
+
+            <!-- 1-3. 담당 영역별 현황 (Phase 1 신규) -->
+            <div class="card">
+                <h3 style="margin-top:0;">👥 담당 영역별 현황</h3>
+                <div class="part-status-grid" id="part-status-grid">
+                    <!-- 동적 생성 -->
+                </div>
+            </div>
+
+            <!-- 1-4. 알림 패널 -->
+            <div class="card alert-panel">
+                <div class="alert-panel-header">
+                    <h3 style="margin:0;">🔔 관리자 알림</h3>
+                    <span class="alert-count-chip" id="alert-count-chip">0건</span>
+                </div>
+                <div class="alert-list" id="alert-list"></div>
+            </div>
+
+            <!-- 1-5. 칸반 보드 및 달력 -->
+            <div class="dashboard-layout">
+                <div class="calendar-panel card">
+                    <div class="cal-header-controls">
+                        <button class="cal-nav-btn" onclick="changeMonth(-1)">&lt;</button>
+                        <select id="cal-year-select" onchange="onCalYearMonthChange()"></select>
+                        <select id="cal-month-select" onchange="onCalYearMonthChange()"></select>
+                        <button class="cal-nav-btn" onclick="changeMonth(1)">&gt;</button>
+                    </div>
+                    <div class="cal-grid">
+                        <div class="cal-day-name">일</div><div class="cal-day-name">월</div>
+                        <div class="cal-day-name">화</div><div class="cal-day-name">수</div>
+                        <div class="cal-day-name">목</div><div class="cal-day-name">금</div>
+                        <div class="cal-day-name">토</div>
+                    </div>
+                    <div class="cal-grid" id="cal-days"></div>
+                    <div style="margin-top: 10px;">
+                        <input type="text" id="global-search" placeholder="🔍 제목 검색..."
+                               style="width:100%; padding: 8px; border:1px solid var(--border); border-radius: 4px;"
+                               oninput="debouncedRenderKanban()">
+                    </div>
+                    <div id="date-filter-badge" style="margin-top:8px; font-size:0.78rem; color:var(--primary);
+                         display:none; cursor:pointer;" onclick="clearDateFilter()">
+                        ✕ 날짜 필터 해제
+                    </div>
+                </div>
+                <div class="board-panel">
+                    <div class="kanban-board" id="kanban-board"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             2. PL 전용 대시보드 (Phase 1 신규)
+             ================================================================= -->
+        <div id="view-pl-dashboard" class="view-container">
+            <div class="card">
+                <h2 style="margin-top:0;">📋 <span id="pl-part-name">내 팀</span> 주간 현황</h2>
+
+                <!-- 2-1. 팀 통계 -->
+                <div class="stats-row" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 20px;">
+                    <div class="stat-card done">
+                        <div class="stat-label">금주 완료</div>
+                        <div class="stat-value" id="pl-completed-count">0</div>
+                    </div>
+                    <div class="stat-card progress">
+                        <div class="stat-label">진행 중</div>
+                        <div class="stat-value" id="pl-inprogress-count">0</div>
+                    </div>
+                    <div class="stat-card overdue">
+                        <div class="stat-label">지연</div>
+                        <div class="stat-value" id="pl-delayed-count">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">차주 시작</div>
+                        <div class="stat-value" id="pl-next-count">0</div>
+                    </div>
+                </div>
+
+                <!-- 2-2. 내 팀원 현황 -->
+                <h3>👷 팀원 작업 현황</h3>
+                <div id="pl-team-members"></div>
+
+                <!-- 2-3. 주간 보고 코멘트 입력 (Phase 2) -->
+                <div class="pl-comment-form">
+                    <label class="field-label">📝 주간 보고 코멘트</label>
+                    <textarea id="pl-weekly-comment" placeholder="이번 주 주요 이슈, 성과, 계획 등을 입력하세요..."></textarea>
+                    <div style="margin-top: 10px;">
+                        <button class="btn btn-primary" onclick="savePlComment()">💾 저장</button>
+                        <button class="btn btn-outline" onclick="clearPlComment()">🔄 초기화</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             3. WBS 뷰
+             ================================================================= -->
+        <div id="view-wbs" class="view-container">
+            <div class="wbs-container card" style="height: 100%; display:flex; flex-direction:column; padding:0; overflow:hidden;">
+                <div class="wbs-toolbar">
+                    <button class="btn btn-primary" onclick="addWbsRoot()">+ 신규 작업 추가</button>
+                    <input type="text" id="wbs-search" placeholder="🔍 작업명 검색"
+                           oninput="debouncedRenderWBS()" style="width:180px;">
+                    <label>기간:</label>
+                    <input type="date" id="wbs-start-filter" onchange="renderWBS()">
+                    <input type="date" id="wbs-end-filter" onchange="renderWBS()">
+                    <button class="btn btn-outline" onclick="resetWbsFilters()">필터 초기화</button>
+                    <div class="spacer"></div>
+                    <button class="btn btn-outline" onclick="manualSaveWbs()">💾 저장</button>
+                </div>
+                <div class="wbs-table-scroll">
+                    <table class="wbs-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 260px;">작업명 / WBS</th>
+                                <th style="width: 100px;">담당</th>
+                                <th style="width: 130px;">시작</th>
+                                <th style="width: 130px;">종료</th>
+                                <th style="width: 100px;">상태</th>
+                                <th style="width: 90px;">우선순위</th>
+                                <th style="width: 90px;">진행률</th>
+                                <th style="width: 90px;">관리</th>
+                            </tr>
+                        </thead>
+                        <tbody id="wbs-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             4. RISK 관리 뷰
+             ================================================================= -->
+        <div id="view-risks" class="view-container">
+            <div class="card" style="height:100%; display:flex; flex-direction:column; padding:0; overflow:hidden;">
+                <div class="wbs-toolbar">
+                    <button class="btn btn-primary" onclick="openRiskModal()">+ 신규 RISK 등록</button>
+                    <button class="btn btn-success" onclick="autoDetectRisks()">🔍 자동 감지 (Phase 1)</button>
+                    <select id="risk-status-filter" onchange="renderRiskRegister()">
+                        <option value="">전체 상태</option>
+                        <option value="open">Open</option>
+                        <option value="mitigating">대응중</option>
+                        <option value="mitigated">완료</option>
+                        <option value="escalated">에스컬레이션</option>
+                    </select>
+                    <select id="risk-severity-filter" onchange="renderRiskRegister()">
+                        <option value="">전체 심각도</option>
+                        <option value="critical">Critical</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+                    <div class="spacer"></div>
+                    <button class="btn btn-outline" onclick="exportRiskCSV()">📑 CSV 내보내기</button>
+                </div>
+                <div style="padding:16px; flex:1; overflow:auto;">
+                    <div id="risk-list-container"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             5. 주간 보고서 뷰 (Phase 2 자동 생성)
+             ================================================================= -->
+        <div id="view-weekly-report" class="view-container">
+            <div class="card">
+                <div class="report-header">
+                    <h1 style="margin:0; font-size:1.5rem;">📅 프로젝트 주간 진행 보고서</h1>
+                    <div style="margin-top:8px; color:rgba(255,255,255,0.8);">
+                        프로젝트: <span id="report-proj-name"></span> |
+                        보고 기간: <span id="report-week-range"></span>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="generateWeeklyReport()" style="margin-bottom: 16px;">
+                    🔄 보고서 자동 생성
+                </button>
+                <button class="btn btn-outline" onclick="window.print()">🖨️ 인쇄</button>
+
+                <div id="weekly-report-content">
+                    <!-- 자동 생성됨 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             6. 고객 보고 전용 뷰 (Phase 2 신규)
+             ================================================================= -->
+        <div id="view-client-report" class="view-container">
+            <div class="card" style="max-width: 900px; margin: 0 auto;">
+                <div style="text-align:center; padding:20px; border-bottom:2px solid #1e293b;">
+                    <h1 style="margin:0; font-size:1.8rem;" id="client-report-title">프로젝트 진행 현황</h1>
+                    <div style="margin-top:8px; color:var(--text-sub); font-size:1.1rem;" id="client-report-date"></div>
+                </div>
+
+                <button class="btn btn-primary" onclick="generateClientReport()" style="margin: 16px 0;">
+                    🔄 고객 보고서 생성
+                </button>
+                <button class="btn btn-outline" onclick="window.print()">🖨️ 인쇄/PDF</button>
+
+                <div id="client-report-content">
+                    <!-- 자동 생성됨 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             7. 변경 이력 뷰 (Phase 3 신규)
+             ================================================================= -->
+        <div id="view-changelog" class="view-container">
+            <div class="card">
+                <h2 style="margin-top:0;">📜 변경 이력 로그</h2>
+                <div style="margin-bottom: 16px;">
+                    <input type="text" id="changelog-search" placeholder="🔍 사용자/작업명 검색..."
+                           oninput="renderChangelog()"
+                           style="width:100%; max-width:300px; padding:8px; border:1px solid var(--border); border-radius:6px;">
+                </div>
+                <div id="changelog-list"></div>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             8. 일정 차트 뷰 (간트 차트 - 연/월/주)
+             ================================================================= -->
+        <div id="view-wbs-chart" class="view-container">
+            <div class="card" style="height:100%; display:flex; flex-direction:column; padding:0; overflow:hidden;">
+                <div class="wbs-toolbar">
+                    <div class="chart-mode-group">
+                        <button class="btn btn-outline" id="chart-mode-year" onclick="setChartMode('year')">년도별</button>
+                        <button class="btn btn-primary" id="chart-mode-month" onclick="setChartMode('month')">월별</button>
+                        <button class="btn btn-outline" id="chart-mode-week" onclick="setChartMode('week')">주별</button>
+                    </div>
+                    <button class="cal-nav-btn" onclick="changeChartPeriod(-1)">&lt;</button>
+                    <div class="chart-period-label" id="chart-period-label">2026년 7월</div>
+                    <button class="cal-nav-btn" onclick="changeChartPeriod(1)">&gt;</button>
+                    <button class="btn btn-outline" onclick="goToChartToday()">오늘</button>
+                    <div class="spacer"></div>
+                    <select id="chart-assignee-filter" onchange="renderWbsChart()" style="padding:8px; border:1px solid var(--border); border-radius:6px;">
+                        <option value="">전체 담당자</option>
+                    </select>
+                    <button class="btn btn-outline" onclick="exportCsv()">📑 CSV 내보내기</button>
+                </div>
+                <div style="flex:1; overflow:hidden; display:flex; flex-direction:column;">
+                    <div id="gantt-chart-container" class="gantt-container">
+                        <!-- 동적 생성 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             9. 담당자별 부하 뷰
+             ================================================================= -->
+        <div id="view-workload" class="view-container">
+            <div class="card">
+                <h2 style="margin-top:0;">📈 담당자별 업무 부하 현황</h2>
+                <div id="workload-list">
+                    <!-- 동적 생성 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             10. 휴일 관리 뷰
+             ================================================================= -->
+        <div id="view-holidays" class="view-container">
+            <div class="card">
+                <h2 style="margin-top:0;">📆 휴일 관리</h2>
+                <div style="margin-bottom:20px;">
+                    <h3>🇰🇷 공휴일 일괄 등록</h3>
+                    <div style="display:flex; gap:10px; align-items:flex-end; margin-bottom:10px;">
+                        <div>
+                            <label class="field-label">등록할 연도</label>
+                            <select id="hol-bulk-year">
+                                <option value="2025">2025년</option>
+                                <option value="2026" selected>2026년</option>
+                                <option value="2027">2027년</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" onclick="bulkRegisterHolidays()">📌 해당 연도 공휴일 일괄 등록</button>
+                    </div>
+                </div>
+
+                <div style="margin-bottom:20px;">
+                    <h3>휴일 추가 등록</h3>
+                    <div style="display:flex; gap:10px; margin-bottom:10px; flex-wrap:wrap;">
+                        <div style="flex:1; min-width:120px;">
+                            <label class="field-label">시작일</label>
+                            <input type="date" id="new-hol-start">
+                        </div>
+                        <div style="flex:1; min-width:120px;">
+                            <label class="field-label">종료일</label>
+                            <input type="date" id="new-hol-end">
+                        </div>
+                        <div style="flex:1.5; min-width:150px;">
+                            <label class="field-label">휴일 이름</label>
+                            <input type="text" id="new-hol-name" placeholder="예: 여름휴가">
+                        </div>
+                        <button class="btn btn-primary" style="align-self:flex-end;" onclick="addHoliday()">+ 등록</button>
+                    </div>
+                </div>
+
+                <h3>등록된 휴일 (<span id="holiday-count">0</span>개)</h3>
+                <div id="holiday-list"></div>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             11. 월간 보고서 뷰
+             ================================================================= -->
+        <div id="view-monthly-report" class="view-container">
+            <div class="card">
+                <div class="report-header">
+                    <h1 style="margin:0; font-size:1.5rem;">📊 프로젝트 월간 진행 보고서</h1>
+                    <div style="margin-top:8px; color:rgba(255,255,255,0.8);">
+                        프로젝트: <span id="monthly-report-proj-name"></span> |
+                        보고 월: <span id="monthly-report-month"></span>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="generateMonthlyReport()" style="margin-bottom: 16px;">
+                    🔄 월간 보고서 자동 생성
+                </button>
+                <button class="btn btn-outline" onclick="window.print()">🖨️ 인쇄</button>
+
+                <div id="monthly-report-content">
+                    <!-- 자동 생성됨 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- =================================================================
+             12. 설정 뷰들
+             ================================================================= -->
+        <div id="view-projects" class="view-container">
+            <div class="card" style="max-width: 800px; margin: 0 auto;">
+                <h2 style="margin-top:0;">🏢 프로젝트 관리</h2>
+                <div style="margin-bottom:20px;">
+                    <h3>새 프로젝트 추가</h3>
+                    <div style="display:flex; gap:10px; margin-bottom:10px;">
+                        <input type="text" id="new-proj-name" placeholder="프로젝트 이름" style="flex:1; padding:10px; border:1px solid var(--border); border-radius:6px;">
+                        <input type="color" id="new-proj-color" value="#2563eb" style="height:42px; width:56px; border:1px solid var(--border); padding:2px; border-radius:6px;">
+                        <button class="btn btn-primary" onclick="addProject()">프로젝트 추가</button>
+                    </div>
+                </div>
+                <h3>등록된 프로젝트 (<span id="project-count">0</span>개)</h3>
+                <div id="project-list"></div>
+            </div>
+        </div>
+
+        <div id="view-workers" class="view-container">
+            <div class="card" style="max-width: 800px; margin: 0 auto;">
+                <h2 style="margin-top:0;">👷 작업자 관리</h2>
+                <div style="margin-bottom:20px;">
+                    <h3>새 작업자 추가</h3>
+                    <div class="person-form-grid" style="margin-bottom:10px;">
+                        <div>
+                            <label class="field-label">이름 *</label>
+                            <input type="text" id="new-worker-name" placeholder="이름">
+                        </div>
+                        <div>
+                            <label class="field-label">담당업무</label>
+                            <select id="new-worker-task">
+                                <option value="">선택하세요</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="field-label">연락처</label>
+                            <input type="text" id="new-worker-phone" placeholder="010-0000-0000">
+                        </div>
+                        <div>
+                            <label class="field-label">이메일</label>
+                            <input type="text" id="new-worker-email" placeholder="email@example.com">
+                        </div>
+                    </div>
+                    <div style="margin-bottom:10px;">
+                        <label class="field-label">메모</label>
+                        <textarea id="new-worker-memo" placeholder="기술스택, 경력 등" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:6px; height:60px; resize:none;"></textarea>
+                    </div>
+                    <button class="btn btn-primary" onclick="addWorker()">작업자 추가</button>
+                </div>
+                <h3>등록된 작업자 (<span id="worker-count">0</span>명)</h3>
+                <div id="worker-list"></div>
+            </div>
+        </div>
+
+        <div id="view-managers" class="view-container">
+            <div class="card" style="max-width: 800px; margin: 0 auto;">
+                <h2 style="margin-top:0;">🧑‍💼 업무 담당자 관리</h2>
+                <div style="margin-bottom:20px;">
+                    <h3>새 업무 담당자 추가</h3>
+                    <div class="person-form-grid" style="margin-bottom:10px;">
+                        <div>
+                            <label class="field-label">이름 *</label>
+                            <input type="text" id="new-manager-name" placeholder="이름">
+                        </div>
+                        <div>
+                            <label class="field-label">담당업무</label>
+                            <input type="text" id="new-manager-task" placeholder="예: 개발 파트장">
+                        </div>
+                        <div>
+                            <label class="field-label">연락처</label>
+                            <input type="text" id="new-manager-phone" placeholder="010-0000-0000">
+                        </div>
+                        <div>
+                            <label class="field-label">이메일</label>
+                            <input type="text" id="new-manager-email" placeholder="email@example.com">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="addManager()">담당자 추가</button>
+                </div>
+                <h3>등록된 업무 담당자 (<span id="manager-count">0</span>명)</h3>
+                <div id="manager-list"></div>
+            </div>
+        </div>
+
+        <div id="view-parts" class="view-container">
+            <div class="card" style="max-width: 800px; margin: 0 auto;">
+                <h2 style="margin-top:0;">🏷️ 담당업무 구분 관리</h2>
+                <div style="margin-bottom:20px;">
+                    <h3>새 담당업무 구분 추가</h3>
+                    <div style="display:flex; gap:10px; margin-bottom:10px; flex-wrap:wrap;">
+                        <div style="flex:2; min-width:150px;">
+                            <label class="field-label">구분명 *</label>
+                            <input type="text" id="new-part-name" placeholder="예: 기획, 디자인" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:6px;">
+                        </div>
+                        <div style="flex:0.5; min-width:80px;">
+                            <label class="field-label">색상</label>
+                            <input type="color" id="new-part-color" value="#3b82f6" style="width:100%; height:42px; border:1px solid var(--border); padding:2px; border-radius:6px;">
+                        </div>
+                        <button class="btn btn-primary" style="align-self:flex-end;" onclick="addPart()">구분 추가</button>
+                    </div>
+                </div>
+                <h3>등록된 담당업무 구분 (<span id="part-count">0</span>개)</h3>
+                <div id="part-list"></div>
+            </div>
+        </div>
+
+        <div id="view-backup" class="view-container">
+            <div class="card">
+                <h2>💾 백업 및 병합 관리</h2>
+
+                <!-- 샘플 데이터 로드 버튼 추가 -->
+                <div style="background:#fff7ed; border:2px solid #fb923c; border-radius:10px; padding:20px; margin-bottom:20px;">
+                    <h3 style="margin-top:0; color:#ea580c;">🎯 샘플 데이터 로드</h3>
+                    <p style="color:#7c2d12; margin-bottom:12px;">
+                        프로젝트 구조를 파악하기 위한 샘플 데이터를 불러옵니다.<br>
+                        <strong>⚠️ 주의: 현재 데이터가 모두 삭제되고 샘플 데이터로 교체됩니다!</strong>
+                    </p>
+                    <button class="btn btn-primary" onclick="loadSampleData()" style="margin-right:10px;">
+                        📦 샘플 데이터 불러오기
+                    </button>
+                    <button class="btn btn-outline" onclick="showDataStructureHelp()">
+                        📚 데이터 구조 설명 보기
+                    </button>
+                </div>
+
+                <div style="margin-bottom:20px;">
+                    <h3>백업 파일 관리</h3>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn btn-primary" onclick="exportData()">💾 JSON으로 백업</button>
+                        <button class="btn btn-outline" onclick="exportCsv()">📑 CSV로 백업</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =================================================================
+         모달 영역
+         ================================================================= -->
+
+    <!-- 작업 상세 모달 (일정 차트용) -->
+    <div class="modal-overlay" id="task-detail-modal">
+        <div class="modal" style="max-width: 600px; max-height: 90vh; overflow-y: auto;">
+            <div class="modal-header">
+                <h3>📝 작업 상세</h3>
+                <button class="modal-close" onclick="closeTaskDetailModal()">&times;</button>
+            </div>
+            <div class="form-col">
+                <!-- 작업 제목 -->
+                <div>
+                    <label class="field-label">작업 제목 *</label>
+                    <input type="text" id="task-detail-title" placeholder="작업 제목">
+                </div>
+
+                <!-- 시작일/종료일 -->
+                <div class="form-row">
+                    <div>
+                        <label class="field-label">시작일</label>
+                        <input type="date" id="task-detail-start">
+                    </div>
+                    <div>
+                        <label class="field-label">종료일</label>
+                        <input type="date" id="task-detail-end">
+                    </div>
+                </div>
+
+                <!-- 담당자 -->
+                <div>
+                    <label class="field-label">담당자</label>
+                    <select id="task-detail-assignee">
+                        <option value="">선택하세요</option>
+                    </select>
+                </div>
+
+                <!-- 상태/우선순위 -->
+                <div class="form-row">
+                    <div>
+                        <label class="field-label">상태</label>
+                        <select id="task-detail-status">
+                            <option value="todo">할 일</option>
+                            <option value="inprogress">진행중</option>
+                            <option value="review">검토중</option>
+                            <option value="done">완료</option>
+                            <option value="cancel">취소</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="field-label">우선순위</label>
+                        <select id="task-detail-priority">
+                            <option value="low">낮음</option>
+                            <option value="medium">보통</option>
+                            <option value="high">높음</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 진척률 슬라이더 -->
+                <div>
+                    <label class="field-label">진척률 (<span id="task-detail-progress-value">0</span>%)</label>
+                    <input type="range" id="task-detail-progress" min="0" max="100" value="0"
+                           style="width:100%;" oninput="updateProgressValue(this.value)">
+                </div>
+
+                <!-- 마일스톤 체크박스 -->
+                <div style="display:flex; align-items:center; gap:8px; padding:10px; background:#f8fafc; border-radius:6px;">
+                    <input type="checkbox" id="task-detail-milestone" style="width:auto; margin:0;">
+                    <label for="task-detail-milestone" style="margin:0; cursor:pointer;">🎯 마일스톤으로 표시</label>
+                </div>
+
+                <!-- 선행작업 (다중 선택) -->
+                <div>
+                    <label class="field-label">선행 작업 (다중 선택 가능)</label>
+                    <div id="task-detail-dependencies" style="max-height:150px; overflow-y:auto; border:1px solid var(--border); border-radius:6px; padding:8px; background:white;">
+                        <!-- 동적 생성 -->
+                    </div>
+                </div>
+
+                <!-- 메모 -->
+                <div>
+                    <label class="field-label">메모</label>
+                    <textarea id="task-detail-memo" rows="4" placeholder="작업 관련 메모를 입력하세요..." style="width:100%; padding:10px; border:1px solid var(--border); border-radius:6px; resize:vertical;"></textarea>
+                </div>
+
+                <div class="error-text" id="task-detail-error"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" onclick="deleteTaskFromModal()" id="task-detail-delete-btn">삭제</button>
+                <button class="btn btn-outline" onclick="closeTaskDetailModal()">취소</button>
+                <button class="btn btn-primary" onclick="saveTaskFromModal()">저장</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modals-placeholder"></div>
+
+    <!-- =================================================================
+         토스트 알림 컨테이너
+         ================================================================= -->
+    <div id="toast-container"></div>
+
+    <script src="modules/app/init.js"></script>
+    <script src="modules/app/functions.js"></script>
+    <script src="modules/report/report.js"></script>
+
+    <script src="modules/ui/ui.js"></script>
+    <script src="modules/dashboard/dashboard.js"></script>
+    <script src="modules/dashboard/pl-dashboard.js"></script>
+    <script src="modules/wbs/wbs.js"></script>
+    <script src="modules/risk/risk.js"></script>
+    <script src="modules/changelog/changelog.js"></script>
+
 </body>
 </html>

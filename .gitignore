@@ -1,0 +1,29 @@
+# ===== 비밀 정보 (절대 올리면 안 됨) =====
+.env
+
+# ===== 의존성 (로컬 설치 캐시) =====
+node_modules/
+
+# ===== 에디터/IDE 설정 =====
+.vscode/
+
+# ===== 백업/임시/테스트 파일 =====
+backup/
+*.bak
+*_bak.html
+*_fixed.html
+*_fixed.txt
+test.html
+implementation_plan.md.txt
+데이터구조_설명서.md
+샘플데이터_예시.json
+프로젝트관리_영역별.html
+Project_claude_*.html
+Project_claude_*.txt
+
+# ===== 기준 파일 (참고용, 소스 관리 대상 아님) =====
+Project_kimi_*.html
+
+# ===== OS 숨김 파일 =====
+.DS_Store
+Thumbs.db
