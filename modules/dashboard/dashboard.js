@@ -5,6 +5,8 @@
             render() {
                 this.renderStats();
                 this.renderTrendChart();
+                this.renderProjectProgress();
+                this.renderRecentTasks();
                 this.renderPartStatus();
                 this.renderAlerts();
                 this.renderCalendar();
@@ -62,9 +64,9 @@
                     : 0;
 
                 const html = `
-                    <div class="stat-card health health-score-card key-card" style="display:flex; flex-direction:column; min-height:130px;">
+                    <div class="stat-card health health-score-card key-card" style="display:flex; flex-direction:column; min-height:130px; background:linear-gradient(135deg,#E8F5E9 0%,#C8E6C9 100%); border:2px solid #A5D6A7;">
                         <div class="stat-label-row health-header">
-                            <span class="stat-label-text">프로젝트 건강도</span>
+                            <span class="stat-label-text">■ 프로젝트 건강도</span>
                             <div class="stat-help-wrap">
                               <span class="stat-help-icon" data-help="health" data-date="${dateLabel}" aria-label="건강도 기준 설명" style="background:#8b5cf6; color:#fff; border-color:#8b5cf6;">i</span>
                               <span class="stat-help-balloon" aria-hidden="true"><strong>프로젝트 건강도</strong><br/>100점 만점 (완료율·지연·리스크 반영)<br/>80↑ 우수 / 60↑ 양호 / 40↑ 주의 / 39↓ 위험<br/>기준일자: ${dateLabel}</span>
@@ -84,9 +86,9 @@
                         </div>
                     </div>
 
-                    <div class="stat-card key-card key-card-total" style="display:flex; flex-direction:column; min-height:130px;"">
+                    <div class="stat-card key-card key-card-total" style="display:flex; flex-direction:column; min-height:130px;" background:linear-gradient(135deg,#F3E5F5 0%,#E1BEE7 100%); border:2px solid #CE93D8;"">
                         <div class="stat-label-row gray-header">
-                            <span class="stat-label-text">전체 작업</span>
+                            <span class="stat-label-text">■ 전체 작업</span>
                             <div class="stat-help-wrap">
                               <span class="stat-help-icon" data-help="total" data-date="${dateLabel}" aria-label="전체 작업 도움말" style="background:#6b7280; color:#fff; border-color:#6b7280;">i</span>
                               <span class="stat-help-balloon" aria-hidden="true"><strong>전체 작업</strong><br/>지난주 작업 건수: ${total}<br/>기준일자: ${dateLabel}</span>
@@ -104,62 +106,6 @@
                                     <span class="legend-item"><i class="dot dot-done"></i>완료 ${done}</span>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="stat-card" style="display:flex; flex-direction:column; min-height:130px;" done">
-                        <div class="stat-label-row green-header">
-                            <span class="stat-label-text">완료</span>
-                            <div class="stat-help-wrap">
-                              <span class="stat-help-icon" data-help="done" data-date="${dateLabel}" aria-label="완료 도움말" style="background:#10b981; color:#fff; border-color:#10b981;">i</span>
-                              <span class="stat-help-balloon" aria-hidden="true"><strong>완료</strong><br/>완료율 = 완료 / 전체 건수<br/>예) ${done}/${total} = ${donePct.toFixed(1)}%</span>
-                            </div>
-                        </div>
-                        <div class="stat-value">${done}</div>
-                        <div class="stat-sub">전체 대비 ${donePct.toFixed(1)}% (${done}/${total})</div>
-                        <div class="progress-bar-outer" style="margin-top: auto;">
-                            <div class="progress-bar-inner" style="width: ${donePct}%"></div>
-                        </div>
-                    </div>
-                    <div class="stat-card" style="display:flex; flex-direction:column; min-height:130px;" progress">
-                        <div class="stat-label-row blue-header">
-                            <span class="stat-label-text">진행중</span>
-                            <div class="stat-help-wrap">
-                              <span class="stat-help-icon" data-help="progress" data-date="${dateLabel}" aria-label="진행중 도움말" style="background:#3b82f6; color:#fff; border-color:#3b82f6;">i</span>
-                              <span class="stat-help-balloon" aria-hidden="true"><strong>진행중</strong><br/>건수 비율 = 진행중 / 전체 건수<br/>가중 진행률 = (Σ 각 업무 진행률) / 전체 건수<br/>예) ${inProgress}/${total} = ${inProgressPct.toFixed(1)}% / 가중 ${progress}%<br/><br/>진행중 평균 = (${inProgVals.join('+')}) ÷ ${inProgress} = ${inProgressAvg}%</span>
-                            </div>
-                        </div>
-                        <div class="stat-value">${inProgress}</div>
-                        <div class="stat-sub">전체 대비 ${inProgressPct.toFixed(1)}% (${inProgress}/${total})<br/>가중 진행률 ${progress}% (Σ업무진행률÷${total})</div>
-                        <div class="progress-bar-outer" style="margin-top: auto;">
-                            <div class="progress-bar-inner" style="width: ${Math.max(inProgressPct, 5)}%; background: #3b82f6;"></div>
-                        </div>
-                    </div>
-                    <div class="stat-card" style="display:flex; flex-direction:column; min-height:130px;" todo">
-                        <div class="stat-label-row orange-header">
-                            <span class="stat-label-text">대기</span>
-                            <div class="stat-help-wrap">
-                              <span class="stat-help-icon" data-help="todo" data-date="${dateLabel}" aria-label="대기 도움말" style="background:#f59e0b; color:#fff; border-color:#f59e0b;">i</span>
-                              <span class="stat-help-balloon" aria-hidden="true"><strong>대기</strong><br/>시작대기 중인 task 수: ${notStarted}</span>
-                            </div>
-                        </div>
-                        <div class="stat-value">${notStarted}</div>
-                        <div class="stat-sub">전체 대비 ${notStartedPct.toFixed(1)}% (${notStarted}/${total})</div>
-                        <div class="progress-bar-outer" style="margin-top: auto;">
-                            <div class="progress-bar-inner todo-bar" style="width: ${Math.max(notStartedPct, 2)}%; background: #f59e0b;"></div>
-                        </div>
-                    </div>
-                    <div class="stat-card" style="display:flex; flex-direction:column; min-height:130px;" overdue">
-                        <div class="stat-label-row red-header">
-                            <span class="stat-label-text">지연</span>
-                            <div class="stat-help-wrap">
-                              <span class="stat-help-icon" data-help="overdue" data-date="${dateLabel}" aria-label="지연 도움말" style="background:#ef4444; color:#fff; border-color:#ef4444;">i</span>
-                              <span class="stat-help-balloon" aria-hidden="true"><strong>지연</strong><br/>현재 진행중인 건수: ${overdue}<br/>${overdue > 0 ? "⚠️ 일정 초과" : "✅ 현재 지연 없음"}</span>
-                            </div>
-                        </div>
-                        <div class="stat-value">${overdue}</div>
-                        <div class="stat-sub">${overdue > 0 ? '⚠️ 일정 초과' : '✅ 현재 지연 없음'}</div>
-                        <div class="progress-bar-outer" style="margin-top: auto;">
-                            <div class="progress-bar-inner overdue-bar" style="width: ${Math.max(overduePct, 2)}%"></div>
                         </div>
                     </div>
                 `;
@@ -209,6 +155,116 @@
                 if (score >= 60) return { class: 'health-good', label: '양호' };
                 if (score >= 40) return { class: 'health-warning', label: '주의' };
                 return { class: 'health-critical', label: '위험' };
+            },
+
+            /**
+             * 6-4b. 프로젝트 진행 현황 도넛차트 (이미지 2행 좌측)
+             * 기준: 현재 일자까지 착수된 업무를 정상/지연/진행중으로 집계
+             */
+            renderProjectProgress() {
+                const projectId = AppState.currentProjectId;
+                if (!projectId) return;
+                const el = document.getElementById('project-progress-card');
+                if (!el) return;
+
+                const tasks = DataManager.getFilteredTasksByRole(projectId);
+                const today = ScheduleEngine.getToday();
+                const asOfTasks = tasks.filter(t => {
+                    const sd = t.startDate ? new Date(t.startDate) : null;
+                    return !sd || sd <= new Date(today);
+                });
+                const total = asOfTasks.length || 1;
+                const normal = asOfTasks.filter(t => t.status === TASK_STATUS.DONE && !ScheduleEngine.isTaskOverdue(t)).length;
+                const delayed = asOfTasks.filter(t => ScheduleEngine.isTaskOverdue(t)).length;
+                const inProg = asOfTasks.filter(t => t.status === TASK_STATUS.INPROGRESS || t.status === TASK_STATUS.REVIEW || t.status === TASK_STATUS.TODO).length;
+
+                const pct = (n) => Math.round((n / total) * 100);
+                const nP = pct(normal), dP = pct(delayed), iP = pct(inProg);
+                // 도넛: conic-gradient (정상=초록#4CAF50, 진행중=파랑#2196F3, 지연=주황#FF9800)
+                const donut = `conic-gradient(#4CAF50 0% ${nP}%, #2196F3 ${nP}% ${nP + iP}%, #FF9800 ${nP + iP}% 100%)`;
+
+                const m = String(new Date().getMonth() + 1).padStart(2, '0');
+                const d = String(new Date().getDate()).padStart(2, '0');
+                const asOf = `${new Date().getFullYear()}.${m}.${d}`;
+
+                el.innerHTML = `
+                    <div class="card progress-status-card">
+                        <h3 style="margin-top:0;">■ 프로젝트 진행 현황 ( ~ ${asOf})</h3>
+                        <div class="donut-wrap">
+                            <div class="donut-chart" style="background:${donut}">
+                                <div class="donut-hole">
+                                    <div class="donut-total">총 프로젝트 ${asOfTasks.length}건</div>
+                                </div>
+                            </div>
+                            <div class="donut-legend">
+                                <div class="donut-legend-item"><span class="dot" style="background:#2196F3"></span>진행중 ${inProg}건 (${iP}%)</div>
+                                <div class="donut-legend-item"><span class="dot" style="background:#4CAF50"></span>정상 ${normal}건 (${nP}%)</div>
+                                <div class="donut-legend-item"><span class="dot" style="background:#FF9800"></span>지연 ${delayed}건 (${dP}%)</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            },
+
+            /**
+             * 6-4c. 최근 작업 현황 테이블 (이미지 2행 우측)
+             * 기간: 현재 주간(월~일) 동적, 데이터는 해당 기간 작업
+             */
+            renderRecentTasks() {
+                const projectId = AppState.currentProjectId;
+                if (!projectId) return;
+                const el = document.getElementById('recent-tasks-card');
+                if (!el) return;
+
+                const now = new Date();
+                const dow = now.getDay(); // 0=일
+                const mondayOffset = (dow === 0 ? -6 : 1 - dow);
+                const mon = new Date(now.getFullYear(), now.getMonth(), now.getDate() + mondayOffset);
+                const sun = new Date(now.getFullYear(), now.getMonth(), now.getDate() + mondayOffset + 6);
+                const fmt = (dt) => `${dt.getFullYear()}.${String(dt.getMonth()+1).padStart(2,'0')}.${String(dt.getDate()).padStart(2,'0')}`;
+                const wkStart = fmt(mon), wkEnd = fmt(sun);
+
+                const tasksAll = DataManager.getFilteredTasksByRole(projectId);
+                // 이번 주 시작 작업 우선, 없으면 최근 시작된 작업(미완료 우선)으로 폴백
+                const thisWeek = tasksAll.filter(t => {
+                    if (!t.startDate) return false;
+                    return t.startDate >= wkStart && t.startDate <= wkEnd;
+                });
+                const fallback = tasksAll
+                    .filter(t => t.status !== TASK_STATUS.DONE)
+                    .sort((a, b) => (b.startDate || '').localeCompare(a.startDate || ''));
+                const tasks = (thisWeek.length ? thisWeek : fallback).slice(0, 8);
+
+                const statusMap = {
+                    [TASK_STATUS.DONE]: { label: '완료', cls: 'st-done' },
+                    [TASK_STATUS.INPROGRESS]: { label: '진행중', cls: 'st-progress' },
+                    [TASK_STATUS.TODO]: { label: '대기', cls: 'st-todo' },
+                    [TASK_STATUS.REVIEW]: { label: '검토중', cls: 'st-progress' },
+                };
+                const projName = (pid) => (DataStore.projects.find(p => p.id === pid) || {}).name || '-';
+
+                const rows = tasks.length ? tasks.map(t => {
+                    const s = statusMap[t.status] || { label: t.status, cls: '' };
+                    return `<tr>
+                        <td>${t.title || '-'}</td>
+                        <td>${projName(t.projectId)}</td>
+                        <td>${t.assignee || '-'}</td>
+                        <td><span class="status-tag ${s.cls}">${s.label}</span></td>
+                        <td>${t.endDate || '-'}</td>
+                    </tr>`;
+                }).join('') : '<tr><td colspan="5" style="text-align:center;color:var(--text-sub);padding:16px;">해당 기간 작업 없음</td></tr>';
+
+                el.innerHTML = `
+                    <div class="card recent-tasks-card">
+                        <h3 style="margin-top:0;">■ 최근 작업 현황 (${wkStart} ~ ${wkEnd})</h3>
+                        <div style="overflow-x:auto;">
+                            <table class="recent-tasks-table">
+                                <thead><tr><th>작업명</th><th>프로젝트</th><th>담당자</th><th>상태</th><th>완료예정일</th></tr></thead>
+                                <tbody>${rows}</tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
             },
 
             /**
