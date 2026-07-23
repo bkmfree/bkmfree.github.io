@@ -269,15 +269,12 @@ body {
    ================================================================= */
 .stats-row {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 16px;
   margin-bottom: var(--space-xl);
 }
-@media (max-width: 1100px) {
-  .stats-row { grid-template-columns: repeat(3, 1fr); gap: 12px; }
-}
-@media (max-width: 680px) {
-  .stats-row { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+@media (max-width: 900px) {
+  .stats-row { grid-template-columns: 1fr; gap: 12px; }
 }
 .stat-card {
   background: var(--surface-elevated);
@@ -287,7 +284,6 @@ body {
   border-left: 3px solid var(--primary);
   min-width: 0;
   height: 100%;
-  min-height: 168px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -297,7 +293,7 @@ body {
   background: var(--surface-elevated);
   border: 2px solid #8b5cf6;
   box-shadow: 0 10px 28px rgba(139, 92, 246, 0.18);
-  overflow: visible;
+  overflow: hidden;
 }
 /* 카드2(전체 작업): 카드1(보라)과 구분되는 인디고 블루 테두리 */
 .stat-card.key-card.key-card-total {
@@ -965,38 +961,6 @@ body {
 /* =================================================================
    8. 칸반 보드
    ================================================================= */
-/* 칸반 + 달력 하단 레이아웃: 균형 배분 + 반응형 */
-.dashboard-layout {
-  display: flex;
-  gap: var(--space-lg);
-  align-items: stretch;
-  margin-bottom: var(--space-xl);
-}
-.calendar-panel {
-  flex: 0 0 360px;
-  max-width: 360px;
-  display: flex;
-  flex-direction: column;
-}
-.board-panel {
-  flex: 1 1 auto;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-}
-.board-panel .kanban-board {
-  flex: 1 1 auto;
-  height: auto;
-  min-height: 320px;
-}
-@media (max-width: 1280px) {
-  .dashboard-layout { flex-direction: column; }
-  .calendar-panel { flex: 1 1 auto; max-width: none; width: 100%; }
-  .board-panel { width: 100%; }
-  .board-panel .kanban-board { min-height: 360px; flex-wrap: wrap; }
-  .board-panel .kanban-col { flex: 1 1 240px; min-width: 200px; max-height: 420px; }
-}
-
 .kanban-board {
   display: flex;
   gap: var(--space-lg);
@@ -1006,8 +970,8 @@ body {
   padding-bottom: var(--space-sm);
 }
 .kanban-col {
-  flex: 1 1 200px;
-  min-width: 180px;
+  min-width: 280px;
+  width: 280px;
   background: #f8fafc;
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -1541,16 +1505,14 @@ body {
   .sidebar-close-btn { display: block; }
   #mobile-menu-btn { display: inline-flex !important; }
   .dashboard-layout { flex-direction: column; }
-  .calendar-panel { width: 100%; height: auto; max-width: none; }
-  .board-panel { width: 100%; height: auto; }
+  .calendar-panel { width: 100%; height: auto; }
+  .board-panel { height: 60vh; }
   .kanban-board {
-    /* 모바일: 좁은 화면에서 가로 스크롤 유지 (컬럼 세로 스택 대신) */
-    flex-direction: row;
+    /* Container Query-ish fallback: stack vertically */
+    flex-direction: column;
     height: auto;
-    min-height: 360px;
-    overflow-x: auto;
   }
-  .kanban-col { width: 280px; min-width: 280px; max-height: 420px; }
+  .kanban-col { width: 100%; min-width: 100%; max-height: 320px; }
   .wbs-toolbar { flex-direction: column; align-items: stretch; }
   .wbs-toolbar .spacer { display: none; }
   .stats-row { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-xs); }
@@ -2110,71 +2072,6 @@ body {
   line-height: 1.2;
 }
 .stat-sub { color: #6b7280; font-size: 0.78rem; margin-top: 4px; }
-/* 설정1(6카드) 헤더 우측 개수 배지 */
-.stat-count-badge {
-  min-width: 20px;
-  height: 20px;
-  padding: 0 6px;
-  border-radius: 999px;
-  color: #fff;
-  font-size: 0.72rem;
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-}
-.stat-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-  min-height: 26px;
-  width: 100%;
-}
-.stat-header .stat-label-text { font-size: 0.85rem; font-weight: 700; line-height: 1.2; }
-.stat-header .stat-label {
-  font-size: 0.8rem; font-weight: 700; line-height: 1.2;
-  padding: 2px 8px; border-radius: 6px; display: inline-block;
-}
-/* 영역 헤더 바 (image1 스타일: 연한 배경 + 굵은 타이틀 + 구분선) */
-.section-header-bar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: #f1f5f9;
-  border: 1px solid #e2e8f0;
-  border-radius: var(--radius-md, 10px);
-  padding: 10px 14px;
-  margin-bottom: var(--space-md, 14px);
-  font-weight: 700;
-  color: #1e3a8a;
-  font-size: 1rem;
-}
-.section-header-bar .sub {
-  font-weight: 400;
-  color: #94a3b8;
-  font-size: 0.8rem;
-}
-/* 주차 헤더 바 (4등분 그리드) */
-.week-header-bar {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  background: #f1f5f9;
-  border: 1px solid #e2e8f0;
-  border-radius: var(--radius-md, 10px);
-  overflow: hidden;
-  margin-bottom: var(--space-md, 14px);
-}
-.week-header-bar .wh {
-  padding: 10px 12px;
-  border-right: 1px solid #e2e8f0;
-  text-align: center;
-}
-.week-header-bar .wh:last-child { border-right: none; }
-.week-header-bar .wh .wk { font-weight: 700; color: #1e3a8a; font-size: 0.95rem; }
-.week-header-bar .wh .dt { color: #94a3b8; font-size: 0.72rem; margin-top: 2px; }
-.stat-body { flex: 1 1 auto; display: flex; flex-direction: column; }
 .stat-sub.success { background: #d1fae5; color: #065f46; padding: 2px 8px; border-radius: 999px; display: inline-block; }
 .stat-value { font-size: 1.6rem; font-weight: 800; line-height: 1.1; }
 
@@ -2187,7 +2084,7 @@ body {
   position: absolute;
   visibility: visible;
   left: 50%;
-  top: calc(100% + 8px);
+  bottom: calc(100% + 28px);
   transform: translateX(-50%);
   background: #1f2937;
   color: #fff;
@@ -2203,8 +2100,7 @@ body {
   white-space: normal;
   word-break: keep-all;
 }
-.stat-help-wrap:hover .stat-help-balloon,
-.stat-header:hover .stat-help-balloon {
+.stat-help-wrap:hover .stat-help-balloon {
   display: block !important;
   opacity: 1 !important;
   visibility: visible !important;
@@ -2214,11 +2110,11 @@ body {
 .stat-help-balloon::after {
   content: "";
   position: absolute;
-  bottom: 100%;
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
   border: 6px solid transparent;
-  border-bottom-color: #1f2937;
+  border-top-color: #1f2937;
 }
 
 /* =================================================================
@@ -2257,10 +2153,6 @@ body {
 .ds-thumb {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 4px;
-}
-.ds-thumb-six {
-  grid-template-columns: repeat(6, 1fr);
   gap: 4px;
 }
 .ds-thumb-card {
