@@ -2137,8 +2137,43 @@ body {
   font-size: 0.8rem; font-weight: 700; line-height: 1.2;
   padding: 2px 8px; border-radius: 6px; display: inline-block;
 }
-/* 상태바: 모든 카드 하단 고정 정렬 */
-.stat-bar-bottom { margin-top: auto; }
+/* 영역 헤더 바 (image1 스타일: 연한 배경 + 굵은 타이틀 + 구분선) */
+.section-header-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md, 10px);
+  padding: 10px 14px;
+  margin-bottom: var(--space-md, 14px);
+  font-weight: 700;
+  color: #1e3a8a;
+  font-size: 1rem;
+}
+.section-header-bar .sub {
+  font-weight: 400;
+  color: #94a3b8;
+  font-size: 0.8rem;
+}
+/* 주차 헤더 바 (4등분 그리드) */
+.week-header-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md, 10px);
+  overflow: hidden;
+  margin-bottom: var(--space-md, 14px);
+}
+.week-header-bar .wh {
+  padding: 10px 12px;
+  border-right: 1px solid #e2e8f0;
+  text-align: center;
+}
+.week-header-bar .wh:last-child { border-right: none; }
+.week-header-bar .wh .wk { font-weight: 700; color: #1e3a8a; font-size: 0.95rem; }
+.week-header-bar .wh .dt { color: #94a3b8; font-size: 0.72rem; margin-top: 2px; }
 .stat-body { flex: 1 1 auto; display: flex; flex-direction: column; }
 .stat-sub.success { background: #d1fae5; color: #065f46; padding: 2px 8px; border-radius: 999px; display: inline-block; }
 .stat-value { font-size: 1.6rem; font-weight: 800; line-height: 1.1; }

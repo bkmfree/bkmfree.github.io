@@ -131,7 +131,13 @@
 
             <!-- 1-2. 주간 추세 그래프 (Phase 1 신규) -->
             <div class="card trend-chart-card">
-                <h3 style="margin-top:0;">■ 주간 진행률 추세 (최근 4주)</h3>
+                <div class="section-header-bar">■ 주간 진행률 추세 (최근 4주)</div>
+                <div class="week-header-bar">
+                    <div class="wh"><div class="wk">1주차</div><div class="dt">1주차 (06.29 ~ 07.05)</div></div>
+                    <div class="wh"><div class="wk">2주차</div><div class="dt">2주차 (07.06 ~ 07.12)</div></div>
+                    <div class="wh"><div class="wk">3주차</div><div class="dt">3주차 (07.13 ~ 07.19)</div></div>
+                    <div class="wh"><div class="wk">4주차</div><div class="dt">4주차 (07.20 ~ 07.26)</div></div>
+                </div>
                 <div class="trend-chart" id="trend-chart">
                     <!-- 동적 생성 -->
                 </div>
@@ -139,7 +145,7 @@
 
             <!-- 1-3. 담당 영역별 현황 (Phase 1 신규) -->
             <div class="card">
-                <h3 style="margin-top:0;">■ 담당 영역별 현황</h3>
+                <div class="section-header-bar">■ 담당 영역별 현황</div>
                 <div class="part-status-grid" id="part-status-grid">
                     <!-- 동적 생성 -->
                 </div>
@@ -148,7 +154,7 @@
             <!-- 1-4. 알림 패널 -->
             <div class="card alert-panel">
                 <div class="alert-panel-header">
-                    <h3 style="margin:0;">■ 관리자 알림</h3>
+                    <div class="section-header-bar" style="flex:1; margin-bottom:0;">■ 관리자 알림</div>
                     <span class="alert-count-chip" id="alert-count-chip">0건</span>
                 </div>
                 <div class="alert-list" id="alert-list"></div>

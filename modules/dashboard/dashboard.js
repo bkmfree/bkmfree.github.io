@@ -195,7 +195,6 @@
                             <span class="stat-help-balloon" aria-hidden="true"><strong>완료</strong><br/>완료된 작업 ${done}건<br/>전체 대비 ${donePct.toFixed(1)}% (${done}/${total})</span>
                         </div>
                         <div class="stat-body">
-                            <div class="stat-value">${done}</div>
                             <div class="stat-sub">전체 대비 ${donePct.toFixed(1)}% (${done}/${total})</div>
                         </div>
                         <div class="progress-bar-outer stat-bar-bottom"><div class="progress-bar-inner" style="width:${donePct}%; background:#4CAF50;"></div></div>
@@ -209,7 +208,6 @@
                             <span class="stat-help-balloon" aria-hidden="true"><strong>진행중</strong><br/>진행중 작업 ${inProgress}건<br/>전체 대비 ${inProgressPct.toFixed(1)}% (${inProgress}/${total})<br/>가중 진행률 ${inProgressAvg}%</span>
                         </div>
                         <div class="stat-body">
-                            <div class="stat-value">${inProgress}</div>
                             <div class="stat-sub">전체 대비 ${inProgressPct.toFixed(1)}% (${inProgress}/${total})</div>
                             <div class="stat-sub" style="font-size:0.68rem;">가중 진행률 ${inProgressAvg}% (Σ업무진행률÷${total})</div>
                         </div>
@@ -224,7 +222,6 @@
                             <span class="stat-help-balloon" aria-hidden="true"><strong>대기</strong><br/>대기 작업 ${notStarted}건<br/>전체 대비 ${notStartedPct.toFixed(1)}% (${notStarted}/${total})</span>
                         </div>
                         <div class="stat-body">
-                            <div class="stat-value">${notStarted}</div>
                             <div class="stat-sub">전체 대비 ${notStartedPct.toFixed(1)}% (${notStarted}/${total})</div>
                         </div>
                         <div class="progress-bar-outer stat-bar-bottom"><div class="progress-bar-inner" style="width:${notStartedPct}%; background:#F59E0B;"></div></div>
@@ -238,7 +235,6 @@
                             <span class="stat-help-balloon" aria-hidden="true"><strong>지연</strong><br/>지연 작업 ${overdue}건<br/>${overdue > 0 ? '현재 지연 ' + overdue + '건' : '✓ 현재 지연 없음'}</span>
                         </div>
                         <div class="stat-body">
-                            <div class="stat-value">${overdue}</div>
                             <div class="stat-sub" style="color:#16a34a;">${overdue > 0 ? '현재 지연 ' + overdue + '건' : '✓ 현재 지연 없음'}</div>
                         </div>
                         <div class="progress-bar-outer stat-bar-bottom"><div class="progress-bar-inner" style="width:${overduePct}%; background:#ec4899;"></div></div>
