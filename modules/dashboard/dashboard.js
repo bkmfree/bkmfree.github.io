@@ -74,7 +74,7 @@
                         </div>
                         <div class="key-card-body">
                             <div class="key-card-icon health-icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7.5-4.6-9.5-9.2C1.2 8.4 2.4 5.5 5.2 5.5c1.9 0 3.1 1.1 3.8 2.4.7-1.3 1.9-2.4 3.8-2.4 2.8 0 4 2.9 5.3 5.5C9.5 16.4 12 21 12 21z" fill="#fff" stroke="#fff"/><path d="M4 12h3l2-3 2 5 2-4 2 2h3" stroke="#fff" stroke-width="1.6"/></svg>
+                                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="none"><path d="M5 11.5h2.5l1.3-2.2 1.9 4 1.4-3 1.2 1.2H19" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 20.5C12 20.5 3.5 14.8 3.5 8.9 3.5 6 5.7 4 8.1 4c1.6 0 3 0.9 3.9 2.3C12.9 4.9 14.3 4 16 4c2.4 0 4.5 2 4.5 4.9C20.5 14.8 12 20.5 12 20.5Z" fill="#fff"/></svg>
                             </div>
                             <div class="key-card-main">
                                 <div class="stat-value health-value">${healthScore}</div>
@@ -101,9 +101,10 @@
                             <div class="key-card-main">
                                 <div class="stat-value total-value">${total}</div>
                                 <div class="legend">
+                                    <span class="legend-item"><i class="dot dot-done"></i>완료 ${done}</span>
                                     <span class="legend-item"><i class="dot dot-progress"></i>진행중 ${inProgress}</span>
                                     <span class="legend-item"><i class="dot dot-todo"></i>대기 ${notStarted}</span>
-                                    <span class="legend-item"><i class="dot dot-done"></i>완료 ${done}</span>
+                                    <span class="legend-item"><i class="dot" style="background:#FF9800"></i>지연 ${overdue}</span>
                                 </div>
                             </div>
                         </div>
