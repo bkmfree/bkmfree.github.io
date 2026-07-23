@@ -2149,7 +2149,9 @@ body {
    대시보드 설정 (설정관리 > 대시보드 설정)
    ================================================================= */
 .ds-card {
-  width: 200px;
+  flex: 1 1 200px;
+  min-width: 200px;
+  max-width: 320px;
   border: 2px solid var(--border);
   border-radius: 10px;
   padding: 12px;
@@ -2224,6 +2226,19 @@ body {
   padding: 2px 10px;
 }
 .btn-sm { padding: 4px 10px; font-size: 0.8rem; }
+
+/* 대시보드 설정 뷰 전체 화면 (중앙 정렬 카드 해제) */
+.ds-fullscreen {
+  max-width: none !important;
+  width: 100%;
+  margin: 0 !important;
+  background: transparent;
+  box-shadow: none;
+  border: none;
+}
+#view-dashboard-settings.view-container {
+  padding: 0 !important;
+}
 
 /* =================================================================
    대시보드 설정3/4: 1행 가로 배치 (2카드 + 도넛/테이블 나란히)
