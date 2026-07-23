@@ -473,9 +473,20 @@
         }
 
         function selectDashboardSetting(id) {
+            // 라디오 선택 시 즉시 적용하지 않고 하이라이트만 갱신 (적용 버튼에서 반영)
             AppState.activeDashboardSettingId = id;
+            renderDashboardSettings();
+            UIController.showToast('설정을 선택했습니다. 하단의 [적용] 버튼을 누르세요.', 'info');
+        }
+
+        function applyDashboardSetting() {
+            const id = AppState.activeDashboardSettingId;
+            if (!id) {
+                UIController.showToast('먼저 설정을 선택해 주세요.', 'error');
+                return;
+            }
             DataManager.saveData();
-            UIController.showToast('대시보드 설정이 변경되었습니다', 'success');
+            UIController.showToast('대시보드 설정이 적용되었습니다', 'success');
             // 대시보드로 이동해서 즉시 반영
             UIController.switchView('dashboard');
         }
