@@ -174,14 +174,15 @@
                     return !sd || sd <= new Date(today);
                 });
                 const total = asOfTasks.length || 1;
-                const normal = asOfTasks.filter(t => t.status === TASK_STATUS.DONE && !ScheduleEngine.isTaskOverdue(t)).length;
+                const done = asOfTasks.filter(t => t.status === TASK_STATUS.DONE).length;
                 const delayed = asOfTasks.filter(t => ScheduleEngine.isTaskOverdue(t)).length;
-                const inProg = asOfTasks.filter(t => t.status === TASK_STATUS.INPROGRESS || t.status === TASK_STATUS.REVIEW || t.status === TASK_STATUS.TODO).length;
+                const inProg = asOfTasks.filter(t => t.status === TASK_STATUS.INPROGRESS || t.status === TASK_STATUS.REVIEW).length;
+                const todo = asOfTasks.filter(t => t.status === TASK_STATUS.TODO).length;
 
                 const pct = (n) => Math.round((n / total) * 100);
-                const nP = pct(normal), dP = pct(delayed), iP = pct(inProg);
-                // 도넛: conic-gradient (정상=초록#4CAF50, 진행중=파랑#2196F3, 지연=주황#FF9800)
-                const donut = `conic-gradient(#4CAF50 0% ${nP}%, #2196F3 ${nP}% ${nP + iP}%, #FF9800 ${nP + iP}% 100%)`;
+                const dP = pct(done), dlyP = pct(delayed), iP = pct(inProg), tP = pct(todo);
+                // 도넛: conic-gradient (완료=초록#4CAF50, 진행중=파랑#2196F3, 대기=회색#9E9E9E, 지연=주황#FF9800)
+                const donut = `conic-gradient(#4CAF50 0% ${dP}%, #2196F3 ${dP}% ${dP + iP}%, #9E9E9E ${dP + iP}% ${dP + iP + tP}%, #FF9800 ${dP + iP + tP}% 100%)`;
 
                 const m = String(new Date().getMonth() + 1).padStart(2, '0');
                 const d = String(new Date().getDate()).padStart(2, '0');
@@ -197,9 +198,10 @@
                                 </div>
                             </div>
                             <div class="donut-legend">
+                                <div class="donut-legend-item"><span class="dot" style="background:#4CAF50"></span>완료 ${done}건 (${dP}%)</div>
                                 <div class="donut-legend-item"><span class="dot" style="background:#2196F3"></span>진행중 ${inProg}건 (${iP}%)</div>
-                                <div class="donut-legend-item"><span class="dot" style="background:#4CAF50"></span>정상 ${normal}건 (${nP}%)</div>
-                                <div class="donut-legend-item"><span class="dot" style="background:#FF9800"></span>지연 ${delayed}건 (${dP}%)</div>
+                                <div class="donut-legend-item"><span class="dot" style="background:#9E9E9E"></span>대기 ${todo}건 (${tP}%)</div>
+                                <div class="donut-legend-item"><span class="dot" style="background:#FF9800"></span>지연 ${delayed}건 (${dlyP}%)</div>
                             </div>
                         </div>
                     </div>
