@@ -4,11 +4,21 @@
              */
             render() {
                 const active = DataManager.getActiveDashboardSetting();
-                const isTwo = active && active.type === 'two';
+                const type = active ? active.type : 'two';
+                const isTwoRow = (type === 'two' || type === 'two-left' || type === 'two-right');
                 this.renderStats();
-                if (isTwo) {
+                if (isTwoRow) {
                     this.renderProjectProgress();
                     this.renderRecentTasks();
+                    // 가로 배치 클래스 적용
+                    const combo = document.querySelector('.dashboard-top-combo');
+                    const row2 = document.querySelector('.dashboard-row-2');
+                    const isHoriz = (type === 'two-left' || type === 'two-right');
+                    if (combo) {
+                        combo.classList.toggle('ComboRow', isHoriz);
+                        combo.classList.toggle('row-donut-right', type === 'two-right');
+                        combo.classList.toggle('row-donut-left', type === 'two-left');
+                    }
                 } else {
                     // 설정1(6개카드): 도넛/테이블 행 비움
                     const pp = document.getElementById('project-progress-card');

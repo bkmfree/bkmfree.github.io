@@ -2201,11 +2201,19 @@ body {
   top: 34px;
 }
 .ds-thumb-wide { grid-column: 1 / -1; height: 26px; }
+.ds-thumb-horiz {
+  display: flex !important;
+  align-items: center;
+  gap: 6px;
+}
+.ds-thumb-horiz .ds-thumb-card { width: 30px; height: 30px; flex: 0 0 auto; }
+.ds-thumb-horiz .ds-thumb-donut { position: static; margin-left: auto; }
 .ds-card-foot {
   display: flex;
   justify-content: flex-end;
   min-height: 28px;
   align-items: center;
+  margin-top: auto;
 }
 .ds-badge {
   font-size: 0.75rem;
@@ -2216,3 +2224,46 @@ body {
   padding: 2px 10px;
 }
 .btn-sm { padding: 4px 10px; font-size: 0.8rem; }
+
+/* =================================================================
+   대시보드 설정3/4: 1행 가로 배치 (2카드 + 도넛/테이블 나란히)
+   ================================================================= */
+.dashboard-top-combo .stats-row {
+  margin-bottom: var(--space-xl);
+}
+/* 기본(세로)일 때는 stats-row 아래 dashboard-row-2 자연스럽게 배치 (기존 동작) */
+.dashboard-top-combo.ComboRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: stretch;
+}
+.dashboard-top-combo.ComboRow .stats-row {
+  display: flex;
+  flex: 1 1 320px;
+  margin-bottom: 0;
+  min-width: 300px;
+}
+.dashboard-top-combo.ComboRow .dashboard-row-2 {
+  flex: 2 1 480px;
+  margin-bottom: 0;
+  min-width: 400px;
+}
+/* 설정4: 도넛 좌 / 카드 우 (이미지1) */
+.dashboard-top-combo.ComboRow.row-donut-right {
+  flex-direction: row-reverse;
+}
+/* 설정3: 카드 좌 / 도넛 우 (이미지2) - 기본 순서(stats-row 좌, row-2 우) */
+.dashboard-top-combo.ComboRow.row-donut-left {
+  flex-direction: row;
+}
+/* 설정3/4 카드 세로 스택 (이미지와 일치) */
+.dashboard-top-combo.ComboRow .stats-row {
+  flex-direction: column;
+}
+@media (max-width: 900px) {
+  .dashboard-top-combo.ComboRow { flex-direction: column; }
+  .dashboard-top-combo.ComboRow .stats-row,
+  .dashboard-top-combo.ComboRow .dashboard-row-2 { flex: 1 1 auto; width: 100%; min-width: 0; }
+  .dashboard-top-combo.ComboRow .dashboard-row-2 { order: 0 !important; }
+}

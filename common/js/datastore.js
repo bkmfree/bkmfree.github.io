@@ -30,7 +30,9 @@
         function getDefaultDashboardSettings() {
             return [
                 { id: 'setting_1', name: '설정1 (6개 카드)', type: 'six',  builtin: true },
-                { id: 'setting_2', name: '설정2 (2카드+도넛/테이블)', type: 'two', builtin: true },
+                { id: 'setting_2', name: '설정2 (2카드 + 도넛/테이블)', type: 'two', builtin: true },
+                { id: 'setting_3', name: '설정3 (2카드 + 도넛/우)', type: 'two-left', builtin: true },
+                { id: 'setting_4', name: '설정4 (도넛/좌 + 2카드)', type: 'two-right', builtin: true },
             ];
         }
 
@@ -101,8 +103,16 @@
                     }
                 });
 
-                // 대시보드 설정 병합 (없으면 기본값)
+                // 대시보드 설정 병합 (없으면 기본값, 있으면 누락된 기본 프리셋 보충)
                 if (Array.isArray(raw.dashboardSettings) && raw.dashboardSettings.length > 0) {
+                    const has3 = raw.dashboardSettings.some(s => s.id === 'setting_3' || s.type === 'two-left');
+                    const has4 = raw.dashboardSettings.some(s => s.id === 'setting_4' || s.type === 'two-right');
+                    if (!has3) {
+                        raw.dashboardSettings.push({ id: 'setting_3', name: '설정3 (2카드 + 도넛/우)', type: 'two-left', builtin: true });
+                    }
+                    if (!has4) {
+                        raw.dashboardSettings.push({ id: 'setting_4', name: '설정4 (도넛/좌 + 2카드)', type: 'two-right', builtin: true });
+                    }
                     DataStore.dashboardSettings = raw.dashboardSettings;
                 } else {
                     DataStore.dashboardSettings = getDefaultDashboardSettings();
