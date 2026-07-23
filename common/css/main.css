@@ -2023,7 +2023,7 @@ body {
   background: inherit;
 }
 .health-header { background: #ede9fe; color: #5b21b6; border-bottom: 1px solid #ddd; }
-.gray-header { background: #f9fafb; color: #374151; border-bottom: 1px solid #ddd; }
+.gray-header { background: #ede9fe; color: #5b21b6; border-bottom: 1px solid #ddd; }
 .green-header { background: #d1fae5; color: #065f46; }
 .blue-header { background: #dbeafe; color: #1e40af; }
 .orange-header { background: #fef3c7; color: #92400e; }
