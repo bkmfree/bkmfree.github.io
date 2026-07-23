@@ -961,6 +961,37 @@ body {
 /* =================================================================
    8. 칸반 보드
    ================================================================= */
+/* 칸반 + 달력 하단 레이아웃: 균형 배분 + 반응형 */
+.dashboard-layout {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: stretch;
+  margin-bottom: var(--space-xl);
+}
+.calendar-panel {
+  flex: 0 0 360px;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+}
+.board-panel {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.board-panel .kanban-board {
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 320px;
+}
+@media (max-width: 1100px) {
+  .dashboard-layout { flex-direction: column; }
+  .calendar-panel { flex: 1 1 auto; max-width: none; width: 100%; }
+  .board-panel { width: 100%; }
+  .board-panel .kanban-board { min-height: 360px; }
+}
+
 .kanban-board {
   display: flex;
   gap: var(--space-lg);
@@ -1505,14 +1536,16 @@ body {
   .sidebar-close-btn { display: block; }
   #mobile-menu-btn { display: inline-flex !important; }
   .dashboard-layout { flex-direction: column; }
-  .calendar-panel { width: 100%; height: auto; }
-  .board-panel { height: 60vh; }
+  .calendar-panel { width: 100%; height: auto; max-width: none; }
+  .board-panel { width: 100%; height: auto; }
   .kanban-board {
-    /* Container Query-ish fallback: stack vertically */
-    flex-direction: column;
+    /* 모바일: 좁은 화면에서 가로 스크롤 유지 (컬럼 세로 스택 대신) */
+    flex-direction: row;
     height: auto;
+    min-height: 360px;
+    overflow-x: auto;
   }
-  .kanban-col { width: 100%; min-width: 100%; max-height: 320px; }
+  .kanban-col { width: 280px; min-width: 280px; max-height: 420px; }
   .wbs-toolbar { flex-direction: column; align-items: stretch; }
   .wbs-toolbar .spacer { display: none; }
   .stats-row { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--space-xs); }
