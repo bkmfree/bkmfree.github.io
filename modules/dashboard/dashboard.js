@@ -74,7 +74,7 @@
                         <div class="stat-sub success">${healthLevel.label}</div>
                     </div>
 
-                    <div class="stat-card key-card" style="display:flex; flex-direction:column; min-height:130px;"">
+                    <div class="stat-card key-card key-card-total" style="display:flex; flex-direction:column; min-height:130px;"">
                         <div class="stat-label-row gray-header">
                             <span class="stat-label-text">전체 작업</span>
                             <div class="stat-help-wrap">
