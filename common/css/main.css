@@ -988,11 +988,12 @@ body {
   height: auto;
   min-height: 320px;
 }
-@media (max-width: 1100px) {
+@media (max-width: 1280px) {
   .dashboard-layout { flex-direction: column; }
   .calendar-panel { flex: 1 1 auto; max-width: none; width: 100%; }
   .board-panel { width: 100%; }
-  .board-panel .kanban-board { min-height: 360px; }
+  .board-panel .kanban-board { min-height: 360px; flex-wrap: wrap; }
+  .board-panel .kanban-col { flex: 1 1 240px; min-width: 200px; max-height: 420px; }
 }
 
 .kanban-board {
@@ -1004,8 +1005,8 @@ body {
   padding-bottom: var(--space-sm);
 }
 .kanban-col {
-  min-width: 280px;
-  width: 280px;
+  flex: 1 1 200px;
+  min-width: 180px;
   background: #f8fafc;
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
