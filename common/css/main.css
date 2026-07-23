@@ -376,6 +376,14 @@ body {
 }
 .recent-tasks-table th { color: var(--text-sub); font-weight: 600; background: #f9fafb; }
 .recent-tasks-table tbody tr:hover { background: #f9fafb; }
+/* 최근 작업: 5행 초과 시 스크롤, 좌측 도넛 카드와 높이 통일 */
+.recent-tasks-card .table-scroll {
+  max-height: 220px;
+  overflow-y: auto;
+}
+.dashboard-row-2 .card { display: flex; flex-direction: column; }
+.dashboard-row-2 .progress-status-card,
+.dashboard-row-2 .recent-tasks-card { height: 100%; }
 .status-tag {
   display: inline-block; padding: 2px 10px; border-radius: 999px;
   font-size: 0.72rem; font-weight: 600;

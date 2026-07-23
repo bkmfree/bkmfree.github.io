@@ -233,7 +233,7 @@
                 const fallback = tasksAll
                     .filter(t => t.status !== TASK_STATUS.DONE)
                     .sort((a, b) => (b.startDate || '').localeCompare(a.startDate || ''));
-                const tasks = (thisWeek.length ? thisWeek : fallback).slice(0, 8);
+                const tasks = (thisWeek.length ? thisWeek : fallback).slice(0, 5);
 
                 const statusMap = {
                     [TASK_STATUS.DONE]: { label: '완료', cls: 'st-done' },
@@ -257,7 +257,7 @@
                 el.innerHTML = `
                     <div class="card recent-tasks-card">
                         <h3 style="margin-top:0;">■ 최근 작업 현황 (${wkStart} ~ ${wkEnd})</h3>
-                        <div style="overflow-x:auto;">
+                        <div class="table-scroll">
                             <table class="recent-tasks-table">
                                 <thead><tr><th>작업명</th><th>프로젝트</th><th>담당자</th><th>상태</th><th>완료예정일</th></tr></thead>
                                 <tbody>${rows}</tbody>
