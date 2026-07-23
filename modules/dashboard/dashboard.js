@@ -163,34 +163,37 @@
                 const d = String(new Date().getDate()).padStart(2,'0');
                 const asOf = `${new Date().getFullYear()}.${m}.${d}`;
                 const html = `
-                    <div class="stat-card health" style="background:linear-gradient(135deg,#a855f7 0%,#7c3aed 100%); border:2px solid #7c3aed; position:relative;">
+                    <div class="stat-card six-sub" style="background:#fff; border:1px solid #e5e7eb; border-top:3px solid #7c3aed; position:relative;">
                         <div class="stat-header">
-                            <span class="stat-label-text" style="color:#fff;">프로젝트 건강도</span>
-                            <span class="stat-help-icon" data-help="health" data-date="${dateLabel}" aria-label="건강도 기준 설명" style="background:#fff; color:#7c3aed; border-color:#fff;">i</span>
+                            <span class="stat-label" style="color:#1f2937; background:#ede9fe;">프로젝트 건강도</span>
+                            <span class="stat-count-badge" style="background:#7c3aed;">${healthScore}</span>
+                            <span class="stat-help-icon" data-help="health" data-date="${dateLabel}" aria-label="건강도 기준 설명" style="background:#7c3aed; color:#fff; border-color:#7c3aed;">i</span>
                             <span class="stat-help-balloon" aria-hidden="true"><strong>프로젝트 건강도</strong><br/>100점 만점 (완료율·지연·리스크 반영)<br/>80↑ 우수 / 60↑ 양호 / 40↑ 주의 / 39↓ 위험<br/>기준일자: ${dateLabel}</span>
                         </div>
                         <div class="stat-body">
-                            <div class="stat-value" style="color:#fff;">${healthScore}</div>
-                            <div class="stat-sub health-badge" style="background:rgba(255,255,255,0.22); color:#fff; border:1px solid rgba(255,255,255,0.4); align-self:flex-start;">${healthLevel.label}</div>
+                            <div class="stat-value" style="color:#7c3aed;">${healthScore}</div>
+                            <div class="stat-sub health-badge" style="background:#ede9fe; color:#7c3aed; border:1px solid #ddd6fe; align-self:flex-start;">${healthLevel.label}</div>
                         </div>
                         <div class="progress-bar-outer stat-bar-bottom"><div class="progress-bar-inner" style="width:${healthScore}%; background:#10b981;"></div></div>
                     </div>
 
-                    <div class="stat-card key-card-total" style="background:linear-gradient(135deg,#3b82f6 0%,#8b5cf6 100%); border:2px solid #8b5cf6; position:relative;">
+                    <div class="stat-card six-sub" style="background:#fff; border:1px solid #e5e7eb; border-top:3px solid #8b5cf6; position:relative;">
                         <div class="stat-header">
-                            <span class="stat-label-text" style="color:#fff;">전체 작업</span>
-                            <span class="stat-help-icon" data-help="total" data-date="${dateLabel}" aria-label="전체 작업 도움말" style="background:#fff; color:#8b5cf6; border-color:#fff;">i</span>
+                            <span class="stat-label" style="color:#1f2937; background:#e0e7ff;">전체 작업</span>
+                            <span class="stat-count-badge" style="background:#8b5cf6;">${total}</span>
+                            <span class="stat-help-icon" data-help="total" data-date="${dateLabel}" aria-label="전체 작업 도움말" style="background:#8b5cf6; color:#fff; border-color:#8b5cf6;">i</span>
                             <span class="stat-help-balloon" aria-hidden="true"><strong>전체 작업</strong><br/>통계 기준일자 : ${asOf}</span>
                         </div>
                         <div class="stat-body">
-                            <div class="stat-value" style="color:#fff;">${total}</div>
-                            <div class="stat-sub" style="color:rgba(255,255,255,0.9);">통계 기준일자 : ${asOf}</div>
+                            <div class="stat-value" style="color:#8b5cf6;">${total}</div>
+                            <div class="stat-sub" style="color:#6b7280;">통계 기준일자 : ${asOf}</div>
                         </div>
                     </div>
 
                     <div class="stat-card six-sub" style="background:#fff; border:1px solid #e5e7eb; border-top:3px solid #10b981; position:relative;">
                         <div class="stat-header">
-                            <span class="stat-label" style="color:#059669; background:#d1fae5;">완료</span>
+                            <span class="stat-label" style="color:#1f2937; background:#d1fae5;">완료</span>
+                            <span class="stat-count-badge" style="background:#059669;">${done}</span>
                             <span class="stat-help-icon" data-help="done" aria-label="완료 도움말" style="background:#059669; color:#fff; border-color:#059669;">i</span>
                             <span class="stat-help-balloon" aria-hidden="true"><strong>완료</strong><br/>완료된 작업 ${done}건<br/>전체 대비 ${donePct.toFixed(1)}% (${done}/${total})</span>
                         </div>
@@ -202,7 +205,8 @@
 
                     <div class="stat-card six-sub" style="background:#fff; border:1px solid #e5e7eb; border-top:3px solid #2196F3; position:relative;">
                         <div class="stat-header">
-                            <span class="stat-label" style="color:#2563eb; background:#dbeafe;">진행중</span>
+                            <span class="stat-label" style="color:#1f2937; background:#dbeafe;">진행중</span>
+                            <span class="stat-count-badge" style="background:#2563eb;">${inProgress}</span>
                             <span class="stat-help-icon" data-help="inprogress" aria-label="진행중 도움말" style="background:#2563eb; color:#fff; border-color:#2563eb;">i</span>
                             <span class="stat-help-balloon" aria-hidden="true"><strong>진행중</strong><br/>진행중 작업 ${inProgress}건<br/>전체 대비 ${inProgressPct.toFixed(1)}% (${inProgress}/${total})<br/>가중 진행률 ${inProgressAvg}%</span>
                         </div>
@@ -215,7 +219,8 @@
 
                     <div class="stat-card six-sub" style="background:#fff; border:1px solid #e5e7eb; border-top:3px solid #F59E0B; position:relative;">
                         <div class="stat-header">
-                            <span class="stat-label" style="color:#d97706; background:#fef3c7;">대기</span>
+                            <span class="stat-label" style="color:#1f2937; background:#fef3c7;">대기</span>
+                            <span class="stat-count-badge" style="background:#d97706;">${notStarted}</span>
                             <span class="stat-help-icon" data-help="todo" aria-label="대기 도움말" style="background:#d97706; color:#fff; border-color:#d97706;">i</span>
                             <span class="stat-help-balloon" aria-hidden="true"><strong>대기</strong><br/>대기 작업 ${notStarted}건<br/>전체 대비 ${notStartedPct.toFixed(1)}% (${notStarted}/${total})</span>
                         </div>
@@ -227,7 +232,8 @@
 
                     <div class="stat-card six-sub" style="background:#fff; border:1px solid #e5e7eb; border-top:3px solid #ec4899; position:relative;">
                         <div class="stat-header">
-                            <span class="stat-label" style="color:#be185d; background:#fce7f3;">지연</span>
+                            <span class="stat-label" style="color:#1f2937; background:#fce7f3;">지연</span>
+                            <span class="stat-count-badge" style="background:#be185d;">${overdue}</span>
                             <span class="stat-help-icon" data-help="delay" aria-label="지연 도움말" style="background:#be185d; color:#fff; border-color:#be185d;">i</span>
                             <span class="stat-help-balloon" aria-hidden="true"><strong>지연</strong><br/>지연 작업 ${overdue}건<br/>${overdue > 0 ? '현재 지연 ' + overdue + '건' : '✓ 현재 지연 없음'}</span>
                         </div>

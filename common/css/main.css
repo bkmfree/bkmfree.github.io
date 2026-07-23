@@ -2110,14 +2110,27 @@ body {
   line-height: 1.2;
 }
 .stat-sub { color: #6b7280; font-size: 0.78rem; margin-top: 4px; }
-/* 설정1(6카드) 통일 헤더: 모든 카드 동일 높이/정렬 */
+/* 설정1(6카드) 헤더 우측 개수 배지 */
+.stat-count-badge {
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
 .stat-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 6px;
   min-height: 26px;
-  margin-bottom: 6px;
+  width: 100%;
 }
 .stat-header .stat-label-text { font-size: 0.85rem; font-weight: 700; line-height: 1.2; }
 .stat-header .stat-label {
