@@ -62,7 +62,7 @@
                     : 0;
 
                 const html = `
-                    <div class="stat-card health health-score-card" style="display:flex; flex-direction:column; min-height:130px; background:#fff;">
+                    <div class="stat-card health health-score-card key-card" style="display:flex; flex-direction:column; min-height:130px;">
                         <div class="stat-label-row health-header">
                             <span class="stat-label-text">프로젝트 건강도</span>
                             <div class="stat-help-wrap">
@@ -74,7 +74,7 @@
                         <div class="stat-sub success">${healthLevel.label}</div>
                     </div>
 
-                    <div class="stat-card" style="display:flex; flex-direction:column; min-height:130px;"">
+                    <div class="stat-card key-card" style="display:flex; flex-direction:column; min-height:130px;"">
                         <div class="stat-label-row gray-header">
                             <span class="stat-label-text">전체 작업</span>
                             <div class="stat-help-wrap">

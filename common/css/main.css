@@ -297,6 +297,21 @@ body {
   flex-direction: column;
   position: relative;
 }
+/* 핵심 카드 차별화: 프로젝트 건강도 + 전체 작업 */
+.stat-card.key-card {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 55%, #5b21b6 100%);
+  border: 2px solid #a78bfa;
+  box-shadow: 0 10px 28px rgba(124, 58, 237, 0.45);
+}
+.stat-card.key-card .stat-label { color: rgba(255, 255, 255, 0.92); }
+.stat-card.key-card .stat-value { color: #fff !important; }
+.stat-card.key-card .stat-sub { color: rgba(255, 255, 255, 0.85); }
+.stat-card.key-card .stat-sub.success {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+.stat-card.key-card .stat-label-row { color: #fff; }
+.stat-card.key-card .stat-help-icon { color: #fff; }
 .stat-card .stat-label {
   font-size: 0.8rem;
   color: inherit;
