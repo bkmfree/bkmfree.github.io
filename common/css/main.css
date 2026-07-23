@@ -2155,6 +2155,10 @@ body {
   grid-template-columns: 1fr 1fr 1fr;
   gap: 4px;
 }
+.ds-thumb-six {
+  grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+}
 .ds-thumb-card {
   height: 22px;
   border-radius: 4px;

@@ -436,7 +436,7 @@
                 const checked = s.id === activeId ? 'checked' : '';
                 const isActive = s.id === activeId;
                 const thumb = (s.type === 'six')
-                    ? `<div class="ds-thumb">
+                    ? `<div class="ds-thumb ds-thumb-six">
                            <div class="ds-thumb-card" style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9)"></div>
                            <div class="ds-thumb-card" style="background:linear-gradient(135deg,#F3E5F5,#E1BEE7)"></div>
                            <div class="ds-thumb-card" style="background:#dbeafe"></div>
