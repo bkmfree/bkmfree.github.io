@@ -88,6 +88,7 @@
                 <li class="nav-subitem" data-view="managers" onclick="switchView('managers', this)">🧑‍💼 업무 담당자 관리</li>
                 <li class="nav-subitem" data-view="parts" onclick="switchView('parts', this)">🏷️ 담당업무 구분</li>
                 <li class="nav-subitem" data-view="backup" onclick="switchView('backup', this)">💾 백업 관리</li>
+                <li class="nav-subitem" data-view="dashboard-settings" onclick="switchView('dashboard-settings', this)">🎛️ 대시보드 설정</li>
                 <li class="nav-subitem" data-view="changelog" onclick="switchView('changelog', this)">📜 변경 이력</li>
             </ul>
         </ul>
@@ -464,8 +465,37 @@
             </div>
         </div>
 
+        <div id="view-dashboard-settings" class="view-container">
+            <div class="card" style="max-width: 1000px; margin: 0 auto;">
+                <h2 style="margin-top:0;">🎛️ 대시보드 설정</h2>
+                <p style="color:var(--text-sub); margin-bottom:16px;">
+                    대시보드 레이아웃을 선택하거나 새로 추가할 수 있습니다. 선택된 설정은 자동 저장됩니다.
+                </p>
+
+                <h3>대시보드 설정 목록</h3>
+                <div id="dashboard-settings-list" style="display:flex; flex-wrap:wrap; gap:16px; margin-bottom:20px;"></div>
+
+                <h3>새 설정 추가</h3>
+                <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:flex-end; margin-bottom:10px;">
+                    <div style="flex:1; min-width:150px;">
+                        <label class="field-label">설정 이름 *</label>
+                        <input type="text" id="new-setting-name" placeholder="예: 설정3 (간략형)" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:6px;">
+                    </div>
+                    <div style="flex:0.5; min-width:160px;">
+                        <label class="field-label">레이아웃 타입</label>
+                        <select id="new-setting-type" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:6px;">
+                            <option value="six">6개 카드 (구형)</option>
+                            <option value="two">2카드 + 도넛/테이블</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="addDashboardSetting()">+ 설정 추가</button>
+                </div>
+                <div class="error-text" id="dashboard-setting-error"></div>
+            </div>
+        </div>
+
         <!-- =================================================================
-             12. 설정 뷰들
+            12. 설정 뷰들 (계속)
              ================================================================= -->
         <div id="view-projects" class="view-container">
             <div class="card" style="max-width: 800px; margin: 0 auto;">

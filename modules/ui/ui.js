@@ -35,6 +35,8 @@
                     'projects': '프로젝트 관리',
                     'workers': '작업자 관리',
                     'parts': '담당업무 구분',
+                    'dashboard-settings': '대시보드 설정',
+                    'backup': '백업 관리',
                 };
                 document.getElementById('page-title').textContent = titles[viewName] || viewName;
 
@@ -55,6 +57,9 @@
                         break;
                     case 'pl-dashboard':
                         PLDashboardRenderer.render();
+                        break;
+                    case 'dashboard-settings':
+                        renderDashboardSettings();
                         break;
                     case 'wbs':
                         WBSRenderer.render();

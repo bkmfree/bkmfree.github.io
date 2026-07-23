@@ -2144,3 +2144,75 @@ body {
   border: 6px solid transparent;
   border-top-color: #1f2937;
 }
+
+/* =================================================================
+   대시보드 설정 (설정관리 > 대시보드 설정)
+   ================================================================= */
+.ds-card {
+  width: 200px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ds-card-active {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+}
+.ds-card-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.ds-card-name { font-size: 0.9rem; }
+.ds-thumb-box {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  background: #f8fafc;
+}
+.ds-thumb {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 4px;
+}
+.ds-thumb-card {
+  height: 22px;
+  border-radius: 4px;
+}
+.ds-thumb-two {
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+}
+.ds-thumb-two .ds-thumb-card { height: 30px; }
+.ds-thumb-donut {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: conic-gradient(#4CAF50 0 55%, #2196F3 55% 80%, #9E9E9E 80% 92%, #FF9800 92% 100%);
+  border: 4px solid #f8fafc;
+  position: absolute;
+  right: 10px;
+  top: 34px;
+}
+.ds-thumb-wide { grid-column: 1 / -1; height: 26px; }
+.ds-card-foot {
+  display: flex;
+  justify-content: flex-end;
+  min-height: 28px;
+  align-items: center;
+}
+.ds-badge {
+  font-size: 0.75rem;
+  color: var(--text-sub);
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  border-radius: 999px;
+  padding: 2px 10px;
+}
+.btn-sm { padding: 4px 10px; font-size: 0.8rem; }

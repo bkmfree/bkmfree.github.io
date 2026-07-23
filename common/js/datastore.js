@@ -8,6 +8,7 @@
             chartMode: 'month',         // 일정 차트 모드 (year, month, week)
             chartDate: new Date(),      // 일정 차트 현재 날짜
             collapsedCategories: new Set(), // 접힌 카테고리 목록 (년도별 보기)
+            activeDashboardSettingId: 'setting_2', // 현재 활성 대시보드 설정 (기본=설정2)
         };
 
         // 1-2. 데이터 저장소 (외부 JSON + 로컬스토리지 기반)
@@ -21,7 +22,17 @@
             holidays: [],
             plComments: {},
             changelog: [],
+            // 대시보드 레이아웃 설정 (설정1=6개카드, 설정2=2카드+도넛/테이블, 동적 추가 가능)
+            dashboardSettings: [],
         };
+
+        // 대시보드 설정 기본값 (초기 1회 세팅용)
+        function getDefaultDashboardSettings() {
+            return [
+                { id: 'setting_1', name: '설정1 (6개 카드)', type: 'six',  builtin: true },
+                { id: 'setting_2', name: '설정2 (2카드+도넛/테이블)', type: 'two', builtin: true },
+            ];
+        }
 
 
         /* =================================================================
@@ -90,9 +101,11 @@
                     }
                 });
 
-                // 객체형 필드
-                if (raw.plComments && typeof raw.plComments === 'object') {
-                    DataStore.plComments = raw.plComments;
+                // 대시보드 설정 병합 (없으면 기본값)
+                if (Array.isArray(raw.dashboardSettings) && raw.dashboardSettings.length > 0) {
+                    DataStore.dashboardSettings = raw.dashboardSettings;
+                } else {
+                    DataStore.dashboardSettings = getDefaultDashboardSettings();
                 }
 
                 // ensure basic structures exist
@@ -113,6 +126,15 @@
                 if (!AppState.currentProjectId && DataStore.projects.length > 0) {
                     AppState.currentProjectId = DataStore.projects[0].id;
                 }
+            },
+
+            // 대시보드 설정 헬퍼
+            getActiveDashboardSetting() {
+                const list = DataStore.dashboardSettings || [];
+                return list.find(s => s.id === AppState.activeDashboardSettingId) || list[0] || null;
+            },
+            getDashboardSettingById(id) {
+                return (DataStore.dashboardSettings || []).find(s => s.id === id) || null;
             },
 
             /**
@@ -142,6 +164,7 @@
                 DataStore.holidays = [];
                 DataStore.plComments = {};
                 DataStore.changelog = [];
+                DataStore.dashboardSettings = getDefaultDashboardSettings();
 
                 AppState.currentProjectId = DataStore.projects[0].id;
                 this.saveData();

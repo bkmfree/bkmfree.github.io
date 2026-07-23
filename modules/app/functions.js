@@ -425,7 +425,96 @@
             ChangelogRenderer.render();
         }
 
-// addProject
+        // 대시보드 설정 렌더링 (라디오 + 썸네일 미리보기 + 추가/삭제)
+        function renderDashboardSettings() {
+            const list = DataStore.dashboardSettings || [];
+            const activeId = AppState.activeDashboardSettingId;
+            const wrap = document.getElementById('dashboard-settings-list');
+            if (!wrap) return;
+
+            wrap.innerHTML = list.map(s => {
+                const checked = s.id === activeId ? 'checked' : '';
+                const isActive = s.id === activeId;
+                const thumb = s.type === 'six'
+                    ? `<div class="ds-thumb">
+                           <div class="ds-thumb-card" style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9)"></div>
+                           <div class="ds-thumb-card" style="background:linear-gradient(135deg,#F3E5F5,#E1BEE7)"></div>
+                           <div class="ds-thumb-card" style="background:#dbeafe"></div>
+                           <div class="ds-thumb-card" style="background:#bbf7d0"></div>
+                           <div class="ds-thumb-card" style="background:#fef9c3"></div>
+                           <div class="ds-thumb-card" style="background:#fce7f3"></div>
+                       </div>`
+                    : `<div class="ds-thumb ds-thumb-two">
+                           <div class="ds-thumb-card" style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9)"></div>
+                           <div class="ds-thumb-card" style="background:linear-gradient(135deg,#F3E5F5,#E1BEE7)"></div>
+                           <div class="ds-thumb-donut"></div>
+                           <div class="ds-thumb-card ds-thumb-wide" style="background:#fff; border:1px solid var(--border)"></div>
+                       </div>`;
+                const delBtn = s.builtin
+                    ? `<span class="ds-badge">기본</span>`
+                    : `<button class="btn btn-outline btn-sm" onclick="deleteDashboardSetting('${s.id}')" style="color:#ef4444; border-color:#ef4444;">삭제</button>`;
+                return `
+                    <div class="ds-card ${isActive ? 'ds-card-active' : ''}">
+                        <label class="ds-card-head">
+                            <input type="radio" name="dash-setting" value="${s.id}" ${checked} onchange="selectDashboardSetting('${s.id}')">
+                            <span class="ds-card-name">${s.name}</span>
+                        </label>
+                        <div class="ds-thumb-box">${thumb}</div>
+                        <div class="ds-card-foot">${delBtn}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function selectDashboardSetting(id) {
+            AppState.activeDashboardSettingId = id;
+            DataManager.saveData();
+            UIController.showToast('대시보드 설정이 변경되었습니다', 'success');
+            // 대시보드로 이동해서 즉시 반영
+            UIController.switchView('dashboard');
+        }
+
+        function addDashboardSetting() {
+            const nameEl = document.getElementById('new-setting-name');
+            const typeEl = document.getElementById('new-setting-type');
+            const errEl = document.getElementById('dashboard-setting-error');
+            const name = nameEl.value.trim();
+            const type = typeEl.value;
+            if (!name) {
+                errEl.textContent = '설정 이름을 입력하세요.';
+                return;
+            }
+            errEl.textContent = '';
+            const setting = {
+                id: DataManager.generateId('setting'),
+                name: name,
+                type: type,
+                builtin: false,
+            };
+            if (!Array.isArray(DataStore.dashboardSettings)) DataStore.dashboardSettings = [];
+            DataStore.dashboardSettings.push(setting);
+            DataManager.saveData();
+            nameEl.value = '';
+            UIController.showToast('새 대시보드 설정이 추가되었습니다', 'success');
+            renderDashboardSettings();
+        }
+
+        function deleteDashboardSetting(id) {
+            if (!Array.isArray(DataStore.dashboardSettings)) return;
+            if (DataStore.dashboardSettings.length <= 1) {
+                UIController.showToast('최소 1개의 설정은 필요합니다', 'error');
+                return;
+            }
+            DataStore.dashboardSettings = DataStore.dashboardSettings.filter(s => s.id !== id);
+            // 삭제한 게 활성 설정이면 첫 번째로 이동
+            if (AppState.activeDashboardSettingId === id) {
+                AppState.activeDashboardSettingId = DataStore.dashboardSettings[0].id;
+            }
+            DataManager.saveData();
+            UIController.showToast('대시보드 설정이 삭제되었습니다', 'success');
+            renderDashboardSettings();
+        }
+
         function addProject() {
             const name = document.getElementById('new-proj-name').value.trim();
             const color = document.getElementById('new-proj-color').value;
