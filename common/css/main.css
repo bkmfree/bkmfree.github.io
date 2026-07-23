@@ -269,12 +269,15 @@ body {
    ================================================================= */
 .stats-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 16px;
   margin-bottom: var(--space-xl);
 }
-@media (max-width: 900px) {
-  .stats-row { grid-template-columns: 1fr; gap: 12px; }
+@media (max-width: 1100px) {
+  .stats-row { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+}
+@media (max-width: 680px) {
+  .stats-row { grid-template-columns: repeat(2, 1fr); gap: 10px; }
 }
 .stat-card {
   background: var(--surface-elevated);
