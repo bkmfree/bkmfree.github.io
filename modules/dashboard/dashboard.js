@@ -179,11 +179,11 @@
                         <div class="stat-header">
                             <span class="stat-label-text" style="color:#fff;">전체 작업</span>
                             <span class="stat-help-icon" data-help="total" data-date="${dateLabel}" aria-label="전체 작업 도움말" style="background:#fff; color:#8b5cf6; border-color:#fff;">i</span>
-                            <span class="stat-help-balloon" aria-hidden="true"><strong>전체 작업</strong><br/>프로젝트 기간 : 2026.01.01</span>
+                            <span class="stat-help-balloon" aria-hidden="true"><strong>전체 작업</strong><br/>전체 작업 건수: ${total}<br/>기준일자: ${dateLabel}</span>
                         </div>
                         <div class="stat-body">
                             <div class="stat-value" style="color:#fff;">${total}</div>
-                            <div class="stat-sub" style="color:rgba(255,255,255,0.92);">프로젝트 기간 : 2026.01.01</div>
+                            <div class="stat-sub" style="color:rgba(255,255,255,0.92);">통계 기준일자 : ${dateLabel}</div>
                         </div>
                     </div>
 
