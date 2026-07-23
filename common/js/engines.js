@@ -109,7 +109,7 @@ const ScheduleEngine = {
                 return t.projectId === projectId &&
                        t.status !== TASK_STATUS.CANCEL &&
                        t.startDate <= range.end &&
-                       (t.endDate >= range.start || t.status === TASK_STATUS.DONE);
+                       t.endDate >= range.start;
             });
 
             const completed = weekTasks.filter(t =>
