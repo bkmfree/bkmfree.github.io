@@ -86,7 +86,7 @@
                         </div>
                     </div>
 
-                    <div class="stat-card key-card key-card-total" style="display:flex; flex-direction:column; min-height:130px;" background:linear-gradient(135deg,#F3E5F5 0%,#E1BEE7 100%); border:2px solid #CE93D8;"">
+                    <div class="stat-card key-card key-card-total" style="display:flex; flex-direction:column; min-height:130px; background:linear-gradient(135deg,#F3E5F5 0%,#E1BEE7 100%); border:2px solid #CE93D8;">
                         <div class="stat-label-row gray-header">
                             <span class="stat-label-text">■ 전체 작업</span>
                             <div class="stat-help-wrap">
