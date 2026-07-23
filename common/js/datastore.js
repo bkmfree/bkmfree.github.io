@@ -31,8 +31,8 @@
             return [
                 { id: 'setting_1', name: '설정1 (6개 카드)', type: 'six',  builtin: true },
                 { id: 'setting_2', name: '설정2 (2카드 + 도넛/테이블)', type: 'two', builtin: true },
-                { id: 'setting_3', name: '설정3 (2카드 + 도넛/우)', type: 'two-left', builtin: true },
-                { id: 'setting_4', name: '설정4 (도넛/좌 + 2카드)', type: 'two-right', builtin: true },
+                { id: 'setting_3', name: '설정3 (2카드 + 도넛/테이블)', type: 'two-left', builtin: true },
+                { id: 'setting_4', name: '설정4 (2카드 + 도넛/테이블)', type: 'two-right', builtin: true },
             ];
         }
 
@@ -108,10 +108,16 @@
                     const has3 = raw.dashboardSettings.some(s => s.id === 'setting_3' || s.type === 'two-left');
                     const has4 = raw.dashboardSettings.some(s => s.id === 'setting_4' || s.type === 'two-right');
                     if (!has3) {
-                        raw.dashboardSettings.push({ id: 'setting_3', name: '설정3 (2카드 + 도넛/우)', type: 'two-left', builtin: true });
+                        raw.dashboardSettings.push({ id: 'setting_3', name: '설정3 (2카드 + 도넛/테이블)', type: 'two-left', builtin: true });
+                    } else {
+                        const s3 = raw.dashboardSettings.find(s => s.id === 'setting_3');
+                        if (s3) s3.name = '설정3 (2카드 + 도넛/테이블)';
                     }
                     if (!has4) {
-                        raw.dashboardSettings.push({ id: 'setting_4', name: '설정4 (도넛/좌 + 2카드)', type: 'two-right', builtin: true });
+                        raw.dashboardSettings.push({ id: 'setting_4', name: '설정4 (2카드 + 도넛/테이블)', type: 'two-right', builtin: true });
+                    } else {
+                        const s4 = raw.dashboardSettings.find(s => s.id === 'setting_4');
+                        if (s4) s4.name = '설정4 (2카드 + 도넛/테이블)';
                     }
                     DataStore.dashboardSettings = raw.dashboardSettings;
                 } else {

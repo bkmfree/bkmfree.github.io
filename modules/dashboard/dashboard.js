@@ -10,14 +10,10 @@
                 if (isTwoRow) {
                     this.renderProjectProgress();
                     this.renderRecentTasks();
-                    // 가로 배치 클래스 적용
+                    // 세로 2행 배치 (설정2/3/4 동일) - 가로(ComboRow) 클래스 잔여 제거
                     const combo = document.querySelector('.dashboard-top-combo');
-                    const row2 = document.querySelector('.dashboard-row-2');
-                    const isHoriz = (type === 'two-left' || type === 'two-right');
                     if (combo) {
-                        combo.classList.toggle('ComboRow', isHoriz);
-                        combo.classList.toggle('row-donut-right', type === 'two-right');
-                        combo.classList.toggle('row-donut-left', type === 'two-left');
+                        combo.classList.remove('ComboRow', 'row-donut-right', 'row-donut-left');
                     }
                 } else {
                     // 설정1(6개카드): 도넛/테이블 행 비움

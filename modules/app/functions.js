@@ -444,12 +444,6 @@
                            <div class="ds-thumb-card" style="background:#fef9c3"></div>
                            <div class="ds-thumb-card" style="background:#fce7f3"></div>
                        </div>`
-                    : (s.type === 'two-left' || s.type === 'two-right')
-                    ? `<div class="ds-thumb ds-thumb-horiz">
-                           <div class="ds-thumb-card" style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9)"></div>
-                           <div class="ds-thumb-card" style="background:linear-gradient(135deg,#F3E5F5,#E1BEE7)"></div>
-                           <div class="ds-thumb-donut"></div>
-                       </div>`
                     : `<div class="ds-thumb ds-thumb-two">
                            <div class="ds-thumb-card" style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9)"></div>
                            <div class="ds-thumb-card" style="background:linear-gradient(135deg,#F3E5F5,#E1BEE7)"></div>
