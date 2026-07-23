@@ -260,8 +260,12 @@
                         <div class="table-scroll">
                             <table class="recent-tasks-table">
                                 <thead><tr><th>작업명</th><th>프로젝트</th><th>담당자</th><th>상태</th><th>완료예정일</th></tr></thead>
+                            </table>
+                            <div class="table-body-scroll">
+                            <table class="recent-tasks-table">
                                 <tbody>${rows}</tbody>
                             </table>
+                            </div>
                         </div>
                     </div>
                 `;

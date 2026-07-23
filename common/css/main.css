@@ -407,10 +407,17 @@ body {
 }
 .recent-tasks-table th { color: var(--text-sub); font-weight: 600; background: #f9fafb; }
 .recent-tasks-table tbody tr:hover { background: #f9fafb; }
-/* 최근 작업: 5행 초과 시 스크롤, 좌측 도넛 카드와 높이 통일 */
-.recent-tasks-card .table-scroll {
+/* 최근 작업: 헤더(제목+컬럼) 고정, 데이터 5행 초과 시만 스크롤 */
+.recent-tasks-card .table-scroll { display: flex; flex-direction: column; }
+.recent-tasks-card .table-body-scroll {
   max-height: 220px;
   overflow-y: auto;
+}
+.recent-tasks-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #f9fafb;
 }
 .dashboard-row-2 .progress-status-card { display: flex; flex-direction: column; }
 .dashboard-row-2 .progress-status-card .donut-wrap {
