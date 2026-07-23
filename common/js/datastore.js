@@ -8,7 +8,7 @@
             chartMode: 'month',         // 일정 차트 모드 (year, month, week)
             chartDate: new Date(),      // 일정 차트 현재 날짜
             collapsedCategories: new Set(), // 접힌 카테고리 목록 (년도별 보기)
-            activeDashboardSettingId: 'setting_2', // 현재 활성 대시보드 설정 (기본=설정2)
+            activeDashboardSettingId: 'setting_1', // 현재 활성 대시보드 설정 (기본=설정1)
         };
 
         // 1-2. 데이터 저장소 (외부 JSON + 로컬스토리지 기반)
