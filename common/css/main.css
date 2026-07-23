@@ -269,7 +269,7 @@ body {
    ================================================================= */
 .stats-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 16px;
   margin-bottom: var(--space-xl);
 }
