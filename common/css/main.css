@@ -297,27 +297,45 @@ body {
   flex-direction: column;
   position: relative;
 }
-/* 핵심 카드 차별화: 프로젝트 건강도 + 전체 작업 */
+/* 핵심 카드 차별화: 프로젝트 건강도(보라 테두리) + 전체 작업(인디고 테두리) */
 .stat-card.key-card {
-  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 55%, #5b21b6 100%);
-  border: 2px solid #a78bfa;
-  box-shadow: 0 10px 28px rgba(124, 58, 237, 0.45);
+  background: var(--surface-elevated);
+  border: 2px solid #8b5cf6;
+  box-shadow: 0 10px 28px rgba(139, 92, 246, 0.18);
 }
-/* 카드2(전체 작업): 카드1(보라)과 구분되는 밝은 인디고 블루 */
+/* 카드2(전체 작업): 카드1(보라)과 구분되는 인디고 블루 테두리 */
 .stat-card.key-card.key-card-total {
-  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 55%, #4338ca 100%);
-  border: 2px solid #a5b4fc;
-  box-shadow: 0 10px 28px rgba(79, 70, 229, 0.40);
+  border: 2px solid #6366f1;
+  box-shadow: 0 10px 28px rgba(99, 102, 241, 0.18);
 }
-.stat-card.key-card .stat-label { color: rgba(255, 255, 255, 0.92); }
-.stat-card.key-card .stat-value { color: #fff !important; }
-.stat-card.key-card .stat-sub { color: rgba(255, 255, 255, 0.85); }
-.stat-card.key-card .stat-sub.success {
-  background: rgba(255, 255, 255, 0.18);
-  color: #fff;
-}
-.stat-card.key-card .stat-label-row { color: #fff; }
+/* 핵심 카드 내부 레이아웃: 원형 아이콘 + 콘텐츠 */
+.key-card-body { display: flex; align-items: center; gap: 12px; margin: 4px 0; flex: 1; min-width: 0; }
+.key-card-icon { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; }
+.key-card-icon.health-icon { background: #10b981; }
+.key-card-icon.total-icon { background: #7c3aed; }
+.key-card-main { display: flex; flex-direction: column; min-width: 0; }
+.stat-card.key-card .stat-label { color: var(--text-main); }
+.stat-card.key-card .stat-label-row { color: var(--text-main); }
+.stat-card.key-card .stat-value { color: var(--text-main); font-size: 1.8rem; line-height: 1.1; }
+.stat-card.key-card .health-value { color: #10b981; }
+.stat-card.key-card .total-value { color: #7c3aed; }
 .stat-card.key-card .stat-help-icon { color: #fff; }
+/* 양호 버튼형 라벨 */
+.stat-card.key-card .stat-sub.success { color: var(--text-sub); }
+.health-badge {
+  display: inline-block; width: fit-content; padding: 2px 12px;
+  border-radius: 999px; background: #ecfdf5; color: #059669;
+  border: 1px solid #a7f3d0; font-weight: 600; margin-top: 4px;
+}
+/* 범례 (진행중/대기/완료) */
+.legend { display: flex; flex-wrap: wrap; gap: 6px 10px; margin-top: 6px; font-size: 0.72rem; color: var(--text-sub); }
+.legend-item { display: inline-flex; align-items: center; gap: 4px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex: 0 0 auto; }
+.dot-progress { background: #3b82f6; }
+.dot-todo { background: #f59e0b; }
+.dot-done { background: #10b981; }
+/* 건강도 프로그레스바 */
+.health-progress { margin-top: auto; }
 .stat-card .stat-label {
   font-size: 0.8rem;
   color: inherit;

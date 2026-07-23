@@ -70,8 +70,18 @@
                               <span class="stat-help-balloon" aria-hidden="true"><strong>프로젝트 건강도</strong><br/>100점 만점 (완료율·지연·리스크 반영)<br/>80↑ 우수 / 60↑ 양호 / 40↑ 주의 / 39↓ 위험<br/>기준일자: ${dateLabel}</span>
                             </div>
                         </div>
-                        <div class="stat-value">${healthScore}</div>
-                        <div class="stat-sub success">${healthLevel.label}</div>
+                        <div class="key-card-body">
+                            <div class="key-card-icon health-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg>
+                            </div>
+                            <div class="key-card-main">
+                                <div class="stat-value health-value">${healthScore}</div>
+                                <div class="stat-sub success health-badge">${healthLevel.label}</div>
+                            </div>
+                        </div>
+                        <div class="progress-bar-outer health-progress" style="margin-top:auto;">
+                            <div class="progress-bar-inner" style="width:${healthScore}%; background:#10b981;"></div>
+                        </div>
                     </div>
 
                     <div class="stat-card key-card key-card-total" style="display:flex; flex-direction:column; min-height:130px;"">
@@ -82,8 +92,19 @@
                               <span class="stat-help-balloon" aria-hidden="true"><strong>전체 작업</strong><br/>지난주 작업 건수: ${total}<br/>기준일자: ${dateLabel}</span>
                             </div>
                         </div>
-                        <div class="stat-value">${total}</div>
-                        <div class="stat-sub success">통계 기준일자 : ${dateLabel}</div>
+                        <div class="key-card-body">
+                            <div class="key-card-icon total-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="16" rx="2"/><path d="M9 4V2h6v2"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>
+                            </div>
+                            <div class="key-card-main">
+                                <div class="stat-value total-value">${total}</div>
+                                <div class="legend">
+                                    <span class="legend-item"><i class="dot dot-progress"></i>진행중 ${inProgress}</span>
+                                    <span class="legend-item"><i class="dot dot-todo"></i>대기 ${notStarted}</span>
+                                    <span class="legend-item"><i class="dot dot-done"></i>완료 ${done}</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="stat-card" style="display:flex; flex-direction:column; min-height:130px;" done">
                         <div class="stat-label-row green-header">
