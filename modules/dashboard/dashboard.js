@@ -163,10 +163,10 @@
                 const d = String(new Date().getDate()).padStart(2,'0');
                 const asOf = `${new Date().getFullYear()}.${m}.${d}`;
                 const html = `
-                    <div class="stat-card health" style="background:linear-gradient(135deg,#a855f7 0%,#7c3aed 100%); border:2px solid #7c3aed; position:relative;">
+                    <div class="stat-card health" style="background:linear-gradient(135deg,#a855f7 0%,#5b21b6 100%); border:2px solid #5b21b6; position:relative;">
                         <div class="stat-header">
                             <span class="stat-label-text" style="color:#fff;">프로젝트 건강도</span>
-                            <span class="stat-help-icon" data-help="health" data-date="${dateLabel}" aria-label="건강도 기준 설명" style="background:#fff; color:#7c3aed; border-color:#fff;">i</span>
+                            <span class="stat-help-icon" data-help="health" data-date="${dateLabel}" aria-label="건강도 기준 설명" style="background:#fff; color:#5b21b6; border-color:#fff;">i</span>
                             <span class="stat-help-balloon" aria-hidden="true"><strong>프로젝트 건강도</strong><br/>100점 만점 (완료율·지연·리스크 반영)<br/>80↑ 우수 / 60↑ 양호 / 40↑ 주의 / 39↓ 위험<br/>기준일자: ${dateLabel}</span>
                         </div>
                         <div class="stat-body">
@@ -175,10 +175,10 @@
                         </div>
                     </div>
 
-                    <div class="stat-card key-card-total" style="background:linear-gradient(135deg,#3b82f6 0%,#8b5cf6 100%); border:2px solid #8b5cf6; position:relative;">
+                    <div class="stat-card key-card-total" style="background:linear-gradient(135deg,#6366f1 0%,#4338ca 100%); border:2px solid #4338ca; position:relative;">
                         <div class="stat-header">
                             <span class="stat-label-text" style="color:#fff;">전체 작업</span>
-                            <span class="stat-help-icon" data-help="total" data-date="${dateLabel}" aria-label="전체 작업 도움말" style="background:#fff; color:#8b5cf6; border-color:#fff;">i</span>
+                            <span class="stat-help-icon" data-help="total" data-date="${dateLabel}" aria-label="전체 작업 도움말" style="background:#fff; color:#4338ca; border-color:#fff;">i</span>
                             <span class="stat-help-balloon" aria-hidden="true"><strong>전체 작업</strong><br/>통계 기준일자 : ${asOf}</span>
                         </div>
                         <div class="stat-body">
