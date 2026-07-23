@@ -74,7 +74,7 @@
                         </div>
                         <div class="key-card-body">
                             <div class="key-card-icon health-icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="none"><path d="M5 11.5h2.5l1.3-2.2 1.9 4 1.4-3 1.2 1.2H19" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 20.5C12 20.5 3.5 14.8 3.5 8.9 3.5 6 5.7 4 8.1 4c1.6 0 3 0.9 3.9 2.3C12.9 4.9 14.3 4 16 4c2.4 0 4.5 2 4.5 4.9C20.5 14.8 12 20.5 12 20.5Z" fill="#fff"/></svg>
+                                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="none"><path d="M12 19C12 19 5 14 5 8.5 5 6.4 6.6 5 8.5 5c1.4 0 2.7 0.8 3.5 2 0.8-1.2 2.1-2 3.5-2C17.4 5 19 6.4 19 8.5 19 14 12 19 12 19Z" fill="#fff"/><path d="M4 11h3l1.6-3 2.4 5 1.6-3.5L16 11h4" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
                             </div>
                             <div class="key-card-main">
                                 <div class="stat-value health-value">${healthScore}</div>
