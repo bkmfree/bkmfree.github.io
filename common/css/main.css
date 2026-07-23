@@ -343,21 +343,13 @@ body {
 .stat-card.overdue { border-left-color: var(--danger); }
 .stat-card.health { border-left-color: #8b5cf6; }
 
-/* 2행 레이아웃: 프로젝트 진행 현황(도넛) + 최근 작업 현황(테이블) */
+/* 2행 레이아웃: 프로젝트 진행 현황(도넛)만 표시 */
 .dashboard-row-2 {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 16px;
   margin-bottom: var(--space-xl);
   align-items: stretch;
-}
-/* 2열 유지, 모바일만 1열 */
-@media (max-width: 600px) {
-  .dashboard-row-2 { grid-template-columns: 1fr; gap: 12px; }
-  .dashboard-row-2 .progress-status-card { flex-direction: row; align-items: center; }
-  .dashboard-row-2 .progress-status-card .donut-wrap { flex: 1; height: auto; }
-  .dashboard-row-2 .progress-status-card .donut-chart { height: 150px; flex: 0 0 auto; }
-  .dashboard-row-2 .recent-tasks-card .table-scroll { max-height: none; }
 }
 /* 상단 카드: 좁아지면 1열 */
 @media (max-width: 600px) {
@@ -400,26 +392,6 @@ body {
 .donut-total { font-size: 0.8rem; font-weight: 700; color: var(--text-main); }
 .donut-legend { display: flex; flex-direction: column; gap: 8px; font-size: 0.82rem; color: var(--text-sub); }
 .donut-legend-item { display: flex; align-items: center; gap: 6px; }
-
-/* 최근 작업 테이블 */
-.recent-tasks-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
-.recent-tasks-table th, .recent-tasks-table td {
-  text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border);
-}
-.recent-tasks-table th { color: var(--text-sub); font-weight: 600; background: #f9fafb; }
-.recent-tasks-table tbody tr:hover { background: #f9fafb; }
-/* 최근 작업: 헤더(제목+컬럼) 고정, 데이터 5행 초과 시만 스크롤 */
-.recent-tasks-card .table-scroll { display: flex; flex-direction: column; }
-.recent-tasks-card .table-body-scroll {
-  max-height: 220px;
-  overflow-y: auto;
-}
-.recent-tasks-table thead th {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  background: #f9fafb;
-}
 .dashboard-row-2 .progress-status-card { display: flex; flex-direction: column; }
 .dashboard-row-2 .progress-status-card .donut-wrap {
   flex: 1;

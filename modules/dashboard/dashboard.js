@@ -9,7 +9,6 @@
                 this.renderStats();
                 if (isTwoRow) {
                     this.renderProjectProgress();
-                    this.renderRecentTasks();
                     // 세로 2행 배치 (설정2/3/4 동일) - 가로(ComboRow) 클래스 잔여 제거
                     const combo = document.querySelector('.dashboard-top-combo');
                     if (combo) {
@@ -314,71 +313,6 @@
                                 <div class="donut-legend-item"><span class="dot" style="background:#2196F3"></span>진행중 ${inProg}건 (${iP}%)</div>
                                 <div class="donut-legend-item"><span class="dot" style="background:#9E9E9E"></span>대기 ${todo}건 (${tP}%)</div>
                                 <div class="donut-legend-item"><span class="dot" style="background:#FF9800"></span>지연 ${delayed}건 (${dlyP}%)</div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            },
-
-            /**
-             * 6-4c. 최근 작업 현황 테이블 (이미지 2행 우측)
-             * 기간: 현재 주간(월~일) 동적, 데이터는 해당 기간 작업
-             */
-            renderRecentTasks() {
-                const projectId = AppState.currentProjectId;
-                if (!projectId) return;
-                const el = document.getElementById('recent-tasks-card');
-                if (!el) return;
-
-                const now = new Date();
-                const dow = now.getDay(); // 0=일
-                const mondayOffset = (dow === 0 ? -6 : 1 - dow);
-                const mon = new Date(now.getFullYear(), now.getMonth(), now.getDate() + mondayOffset);
-                const sun = new Date(now.getFullYear(), now.getMonth(), now.getDate() + mondayOffset + 6);
-                const fmt = (dt) => `${dt.getFullYear()}.${String(dt.getMonth()+1).padStart(2,'0')}.${String(dt.getDate()).padStart(2,'0')}`;
-                const wkStart = fmt(mon), wkEnd = fmt(sun);
-
-                const tasksAll = DataManager.getFilteredTasksByRole(projectId);
-                // 이번 주 시작 작업 우선, 없으면 최근 시작된 작업(미완료 우선)으로 폴백
-                const thisWeek = tasksAll.filter(t => {
-                    if (!t.startDate) return false;
-                    return t.startDate >= wkStart && t.startDate <= wkEnd;
-                });
-                const fallback = tasksAll
-                    .filter(t => t.status !== TASK_STATUS.DONE)
-                    .sort((a, b) => (b.startDate || '').localeCompare(a.startDate || ''));
-                const tasks = (thisWeek.length ? thisWeek : fallback).slice(0, 5);
-
-                const statusMap = {
-                    [TASK_STATUS.DONE]: { label: '완료', cls: 'st-done' },
-                    [TASK_STATUS.INPROGRESS]: { label: '진행중', cls: 'st-progress' },
-                    [TASK_STATUS.TODO]: { label: '대기', cls: 'st-todo' },
-                    [TASK_STATUS.REVIEW]: { label: '검토중', cls: 'st-progress' },
-                };
-                const projName = (pid) => (DataStore.projects.find(p => p.id === pid) || {}).name || '-';
-
-                const rows = tasks.length ? tasks.map(t => {
-                    const s = statusMap[t.status] || { label: t.status, cls: '' };
-                    return `<tr>
-                        <td>${t.title || '-'}</td>
-                        <td>${projName(t.projectId)}</td>
-                        <td>${t.assignee || '-'}</td>
-                        <td><span class="status-tag ${s.cls}">${s.label}</span></td>
-                        <td>${t.endDate || '-'}</td>
-                    </tr>`;
-                }).join('') : '<tr><td colspan="5" style="text-align:center;color:var(--text-sub);padding:16px;">해당 기간 작업 없음</td></tr>';
-
-                el.innerHTML = `
-                    <div class="card recent-tasks-card">
-                        <h3 style="margin-top:0;">■ 최근 작업 현황 (${wkStart} ~ ${wkEnd})</h3>
-                        <div class="table-scroll">
-                            <table class="recent-tasks-table">
-                                <thead><tr><th>작업명</th><th>프로젝트</th><th>담당자</th><th>상태</th><th>완료예정일</th></tr></thead>
-                            </table>
-                            <div class="table-body-scroll">
-                            <table class="recent-tasks-table">
-                                <tbody>${rows}</tbody>
-                            </table>
                             </div>
                         </div>
                     </div>
